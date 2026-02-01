@@ -3,46 +3,56 @@ const app = {
 
   init: async function() {
     try {
-      // Añadimos timestamp para forzar actualización y evitar caché
       const response = await fetch('api.php?action=get_all&t=' + Date.now());
-      this.data = await response.json();
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Error cargando datos. Refresca la página (F5).");
-    }
 
-    // Renderizar Grids si existen
-    this.renderFeatured(); // Para index.php
-    this.renderCatalog();  // Para oportunidades.php
-    this.renderBlog();     // Para blog.php
-    this.renderAdmin();     // Para gestion.php
+      // Si el servidor responde con OK (200)
+      if (response.ok) {
+        // Intentamos parsear como JSON
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          this.data = await response.json();
+        } else {
+          // Si la respuesta no es JSON, leemos el texto para ver el error
+          const text = await response.text();
+          console.error("La respuesta no es JSON:", text);
+          alert("Error: El servidor devolvió texto en lugar de datos JSON. Revisa la consola (F12).");
+          return;
+        }
+      } else {
+        // Error HTTP (404, 500, etc)
+        console.error("Error HTTP:", response.status, response.statusText);
+        alert("Error de conexión: " + response.status);
+        return;
+      }
+
+      // Renderizar si los datos cargaron
+      this.renderFeatured();
+      this.renderCatalog();
+      this.renderBlog();
+      this.renderAdmin();
+
+    } catch (error) {
+      console.error("Error crítico al cargar:", error);
+      alert("Error cargando la web. Asegúrate de que api.php existe y db.php tiene las credenciales correctas.");
+    }
   },
 
-  // --- RENDERIZADO HOME (3 Destacados) ---
+  // --- RENDERIZADO ---
   renderFeatured: function() {
     const container = document.getElementById('featured-grid');
     if (!container) return;
-
-    // Mostramos solo los primeros 3
-    const items = this.data.properties.slice(0, 3);
-    container.innerHTML = this.createCardsHTML(items);
+    container.innerHTML = this.createCards(this.data.properties.slice(0, 3));
   },
 
-  // --- RENDERIZADO CATÁLOGO (Todos) ---
   renderCatalog: function() {
     const container = document.getElementById('catalog-grid');
     if (!container) return;
-
-    // Mostramos todos
-    const items = this.data.properties;
-    container.innerHTML = this.createCardsHTML(items);
+    container.innerHTML = this.createCards(this.data.properties);
   },
 
-  // --- RENDERIZADO BLOG (Todos) ---
   renderBlog: function() {
     const container = document.getElementById('blog-grid');
     if (!container) return;
-
     container.innerHTML = this.data.posts.map(item => `
     <div class="post-card">
     <div class="card-image-wrapper" style="height: 200px;">
@@ -57,8 +67,25 @@ const app = {
     `).join('');
   },
 
-  // --- HELPER: HTML DE LAS TARJETAS PRO ---
-  createCardsHTML: function(items) {
+  renderAdmin: function() {
+    const tbody = document.querySelector('#admin-table tbody');
+    if (!tbody) return;
+    tbody.innerHTML = this.data.properties.map(item => `
+    <tr>
+    <td><img src="${item.image}" alt="mini" style="width:50px; height:35px; object-fit:cover; border-radius:4px;"></td>
+    <td>${item.title}</td>
+    <td>${item.location}</td>
+    <td>${item.profit}</td>
+    <td>
+    <button class="btn-edit" onclick="app.editProp(${item.id})">Editar</button>
+    <button class="btn-del" onclick="app.deleteProp(${item.id})">Borrar</button>
+    </td>
+    </tr>
+    `).join('');
+  },
+
+  createCards: function(items) {
+    if(!items) return '';
     return items.map(item => `
     <div class="project-card">
     <div class="card-image-wrapper">
@@ -84,7 +111,7 @@ const app = {
     </div>
 
     <a href="ficha.php?id=${item.id}" class="card-btn">
-    Ver Detalles de Inversión
+    Ver Detalles
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
     </div>
@@ -92,17 +119,12 @@ const app = {
     `).join('');
   },
 
-  // --- CARGAR FICHA INDIVIDUAL ---
+  // --- DETALLES ---
   loadPropertyDetail: function() {
     const params = new URLSearchParams(window.location.search);
     const id = parseInt(params.get('id'));
     const item = this.data.properties.find(x => x.id === id);
-
-    if (!item) {
-      document.getElementById('detail-container').innerHTML = '<p class="container">Piso no encontrado.</p>';
-      return;
-    }
-
+    if (!item) return;
     document.getElementById('detail-image').src = item.image;
     document.getElementById('detail-title').innerText = item.title;
     document.getElementById('detail-location-text').innerText = item.location;
@@ -114,93 +136,58 @@ const app = {
     document.getElementById('detail-funded').innerText = item.funded;
   },
 
-  // --- CARGAR ARTICULO INDIVIDUAL ---
   loadBlogDetail: function() {
     const params = new URLSearchParams(window.location.search);
     const id = parseInt(params.get('id'));
     const item = this.data.posts.find(x => x.id === id);
-
-    if (!item) {
-      document.getElementById('article-content').innerHTML = '<p class="container">Artículo no encontrado.</p>';
-      return;
-    }
-
+    if (!item) return;
     document.getElementById('article-date').innerText = item.date;
     document.getElementById('article-title').innerText = item.title;
     document.getElementById('article-body').innerHTML = item.body;
   },
 
-  // --- ADMIN PANEL LOGIC ---
-  renderAdmin: function() {
-    const tbody = document.querySelector('#admin-table tbody');
-    if (!tbody) return;
-
-    tbody.innerHTML = this.data.properties.map(item => `
-    <tr>
-    <td><img src="${item.image}" alt="mini" style="width:50px; height:35px; object-fit:cover; border-radius:4px;"></td>
-    <td>${item.title}</td>
-    <td>${item.location}</td>
-    <td>${item.profit}</td>
-    <td>
-    <button class="btn-edit" onclick="app.editProp(${item.id})">Editar</button>
-    <button class="btn-del" onclick="app.deleteProp(${item.id})">Borrar</button>
-    </td>
-    </tr>
-    `).join('');
-  },
-
+  // --- ADMIN ---
   saveProperty: async function(e) {
     e.preventDefault();
     const id = document.getElementById('prop-id').value;
     const imageInput = document.getElementById('prop-image-data').value;
-
-    // Lógica de imagen
     let finalImage = imageInput;
-    if (!finalImage && !id) {
-      finalImage = `https://picsum.photos/seed/${Date.now()}/400/300`;
-    }
+    if (!finalImage && !id) finalImage = `https://picsum.photos/seed/${Date.now()}/400/300`;
 
-    const formData = {
-      id: id,
-      title: document.getElementById('prop-title').value,
-      location: document.getElementById('prop-loc').value,
-      profit: document.getElementById('prop-profit').value,
-      duration: document.getElementById('prop-duration').value,
-      min: document.getElementById('prop-min').value,
-      badge: document.getElementById('prop-badge').value,
-      progress: document.getElementById('prop-progress').value,
-      funded: document.getElementById('prop-funded').value,
-      description: document.getElementById('prop-desc').value,
-      image: finalImage
-    };
+      const formData = {
+        id: id,
+        title: document.getElementById('prop-title').value,
+        location: document.getElementById('prop-loc').value,
+        profit: document.getElementById('prop-profit').value,
+        duration: document.getElementById('prop-duration').value,
+        min: document.getElementById('prop-min').value,
+        badge: document.getElementById('prop-badge').value,
+        progress: document.getElementById('prop-progress').value,
+        funded: document.getElementById('prop-funded').value,
+        description: document.getElementById('prop-desc').value,
+        image: finalImage
+      };
 
-    const params = new URLSearchParams();
-    for (const key in formData) {
-      params.append(key, formData[key]);
-    }
+      const params = new URLSearchParams();
+      for (const key in formData) params.append(key, formData[key]);
 
-    try {
-      const response = await fetch('api.php?action=save_property', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: params
-      });
-
-      const result = await response.json();
-      if(result.status === 'success') {
-        this.resetForm();
-        await this.init();
-        alert('Guardado correctamente');
-      } else {
-        alert('Error al guardar: ' + (result.message || 'Desconocido'));
-      }
-    } catch (error) {
-      alert('Error de conexión con servidor');
-    }
+      try {
+        const response = await fetch('api.php?action=save_property', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          body: params
+        });
+        const result = await response.json();
+        if(result.status === 'success') {
+          this.resetForm();
+          await this.init();
+          alert('Guardado');
+        }
+      } catch (error) { alert('Error al guardar'); }
   },
 
   deleteProp: async function(id) {
-    if(confirm('¿Borrar piso?')) {
+    if(confirm('¿Borrar?')) {
       await fetch(`api.php?action=delete_property&id=${id}`);
       await this.init();
     }
