@@ -1,53 +1,57 @@
 <?php
-// Obligar al buffer de salida para capturar cualquier cosa
-ob_start();
+// --- 1. CONFIGURACIÓN DIRECTA (BLINDADA) ---
+$db_host = 'bbdd.iroagestion.com';
+$db_user = 'ddb267655';
+$db_pass = 'Iroagestion90*';
+$db_name = 'ddb267655';
+
+// --- 2. CABECERAS JSON ---
+error_reporting(0); // Ocultamos errores visuales de PHP
 header('Content-Type: application/json');
-header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Cache-Control: no-store, no-cache, must-reload");
 
-try {
-    // Intentamos conectar
-    require 'db.php';
-} catch (Exception $e) {
-    // Si falla la conexión, devolvemos un JSON de error explícito
-    echo json_encode(['error' => true, 'message' => 'Error de conexión BD: ' . $e->getMessage()]);
-    exit;
-}
+// --- 3. CONEXIÓN A LA BASE DE DATOS ---
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
-$action = $_GET['action'] ?? '';
-
-// 1. LEER DATOS
-if ($action == 'get_all') {
-    $response = [];
-
-    // Obtenemos Pisos
-    $query_props = $conn->query("SELECT * FROM properties ORDER BY id DESC");
-    if ($query_props) {
-        $response['properties'] = [];
-        while($row = $query_props->fetch_assoc()) {
-            $response['properties'][] = $row;
-        }
-    } else {
-        $response['properties'] = [];
-    }
-
-    // Obtenemos Posts
-    $query_posts = $conn->query("SELECT * FROM posts ORDER BY id DESC");
-    if ($query_posts) {
-        $response['posts'] = [];
-        while($row = $query_posts->fetch_assoc()) {
-            $response['posts'][] = $row;
-        }
-    } else {
-        $response['posts'] = [];
-    }
-
-    // Limpieza final del buffer
-    ob_clean();
+// Si la conexión falla, generamos un mensaje de error JSON MANUALMENTE
+if ($conn->connect_error) {
+    // Esto hace que incluso si falla la BD, el navegador lea JSON y el JS te diga qué pasó
+    $response = ['error' => true, 'message' => 'Error de conexión BD: ' . $conn->connect_error];
     echo json_encode($response);
     exit;
 }
 
-// 2. GUARDAR
+// Forzamos caracteres especiales
+$conn->set_charset("utf8mb4");
+
+// --- 4. LÓGICA DE LA API ---
+$action = $_GET['action'] ?? '';
+
+// OBTENER DATOS
+if ($action == 'get_all') {
+    $response = ['properties' => [], 'posts' => []];
+
+    // Pisos
+    $props_result = $conn->query("SELECT * FROM properties ORDER BY id DESC");
+    if ($props_result) {
+        while($row = $props_result->fetch_assoc()) {
+            $response['properties'][] = $row;
+        }
+    }
+
+    // Posts
+    $posts_result = $conn->query("SELECT * FROM posts ORDER BY id DESC");
+    if ($posts_result) {
+        while($row = $posts_result->fetch_assoc()) {
+            $response['posts'][] = $row;
+        }
+    }
+
+    echo json_encode($response);
+    exit;
+}
+
+// GUARDAR
 if ($action == 'save_property' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'] ?? '';
     $title = $_POST['title'];
@@ -71,7 +75,6 @@ if ($action == 'save_property' && $_SERVER['REQUEST_METHOD'] == 'POST') {
         $executed = $stmt->execute();
     }
 
-    ob_clean();
     if ($executed) {
         echo json_encode(['status' => 'success']);
     } else {
@@ -80,11 +83,10 @@ if ($action == 'save_property' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     exit;
 }
 
-// 3. BORRAR
+// BORRAR
 if ($action == 'delete_property') {
     $id = $_GET['id'];
     $conn->query("DELETE FROM properties WHERE id=$id");
-    ob_clean();
     echo json_encode(['status' => 'success']);
     exit;
 }
