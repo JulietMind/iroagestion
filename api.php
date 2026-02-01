@@ -1,12 +1,18 @@
 <?php
-// Forzamos la salida a ser JSON estricto
-error_reporting(0);
+// Obligar al buffer de salida para capturar cualquier cosa
+ob_start();
 header('Content-Type: application/json');
 header("Cache-Control: no-store, no-cache, must-revalidate");
 
-require 'db.php';
+try {
+    // Intentamos conectar
+    require 'db.php';
+} catch (Exception $e) {
+    // Si falla la conexión, devolvemos un JSON de error explícito
+    echo json_encode(['error' => true, 'message' => 'Error de conexión BD: ' . $e->getMessage()]);
+    exit;
+}
 
-// Si db.php falla, el script se detiene aquí. Si llegamos aquí, conectamos.
 $action = $_GET['action'] ?? '';
 
 // 1. LEER DATOS
@@ -21,7 +27,7 @@ if ($action == 'get_all') {
             $response['properties'][] = $row;
         }
     } else {
-        $response['properties'] = []; // Tabla vacía o error, pero no rompemos JSON
+        $response['properties'] = [];
     }
 
     // Obtenemos Posts
@@ -35,12 +41,13 @@ if ($action == 'get_all') {
         $response['posts'] = [];
     }
 
-    // Salida final limpia
+    // Limpieza final del buffer
+    ob_clean();
     echo json_encode($response);
     exit;
 }
 
-// 2. GUARDAR (Si esto funciona, la BD conecta bien)
+// 2. GUARDAR
 if ($action == 'save_property' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'] ?? '';
     $title = $_POST['title'];
@@ -64,6 +71,7 @@ if ($action == 'save_property' && $_SERVER['REQUEST_METHOD'] == 'POST') {
         $executed = $stmt->execute();
     }
 
+    ob_clean();
     if ($executed) {
         echo json_encode(['status' => 'success']);
     } else {
@@ -76,6 +84,7 @@ if ($action == 'save_property' && $_SERVER['REQUEST_METHOD'] == 'POST') {
 if ($action == 'delete_property') {
     $id = $_GET['id'];
     $conn->query("DELETE FROM properties WHERE id=$id");
+    ob_clean();
     echo json_encode(['status' => 'success']);
     exit;
 }
