@@ -5,7 +5,7 @@
     <a href="oportunidades.php" style="margin: 0 10px;">Oportunidades</a>
     <a href="sobre-nosotros.php" style="margin: 0 10px;">Nosotros</a>
     </p>
-    <p>&copy; 2023 Iroa Gestión. Todos los derechos reservados.</p>
+    <p>&copy; 2026 Iroa Gestión. Todos los derechos reservados.</p>
     </div>
     </footer>
     </body>
