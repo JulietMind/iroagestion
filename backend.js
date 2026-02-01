@@ -227,6 +227,71 @@ const app = {
   }
 };
 
+// --- CARGAR FICHA DIRECTA DEL SERVIDOR (Inmediata) ---
+fetchPropertyDetail: async function() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+
+  if(!id) {
+    document.getElementById('detail-container').innerHTML = '<p style="padding:20px; color:white;">ID de piso no especificado.</p>';
+    return;
+  }
+
+  try {
+    const response = await fetch('api.php?action=get_property&id=' + id);
+    const item = await response.json();
+
+    if (!item) {
+      document.getElementById('detail-container').innerHTML = '<p style="padding:20px; color:white;">Piso no encontrado.</p>';
+      return;
+    }
+
+    // Pintar datos
+    document.getElementById('detail-image').src = item.image;
+    document.getElementById('detail-title').innerText = item.title;
+    document.getElementById('detail-location-text').innerText = item.location;
+    document.getElementById('detail-profit').innerText = item.profit;
+    document.getElementById('detail-duration').innerText = item.duration;
+    document.getElementById('detail-min').innerText = item.min;
+    document.getElementById('detail-desc').innerHTML = item.description || "Sin descripción.";
+    document.getElementById('detail-progress').style.width = item.progress + "%";
+    document.getElementById('detail-funded').innerText = item.funded;
+
+  } catch (error) {
+    console.error("Error cargando ficha:", error);
+    document.getElementById('detail-container').innerHTML = '<p style="padding:20px; color:#ef4444;">Error al cargar los datos.</p>';
+  }
+},
+
+// --- CARGAR ARTICULO DIRECTO DEL SERVIDOR (Inmediata) ---
+fetchBlogDetail: async function() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+
+  if(!id) {
+    document.getElementById('article-body').innerHTML = '<p>Artículo no especificado.</p>';
+    return;
+  }
+
+  try {
+    const response = await fetch('api.php?action=get_post&id=' + id);
+    const item = await response.json();
+
+    if (!item) {
+      document.getElementById('article-body').innerHTML = '<p>Artículo no encontrado.</p>';
+      return;
+    }
+
+    document.getElementById('article-date').innerText = item.date;
+    document.getElementById('article-title').innerText = item.title;
+    document.getElementById('article-body').innerHTML = item.body;
+
+  } catch (error) {
+    console.error("Error cargando artículo:", error);
+    document.getElementById('article-body').innerHTML = '<p style="color:#ef4444;">Error al cargar el artículo.</p>';
+  }
+},
+
 // Inicialización global para listas
 document.addEventListener('DOMContentLoaded', () => {
   app.init();
