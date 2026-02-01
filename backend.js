@@ -3,6 +3,9 @@ const app = {
 
   init: async function() {
     try {
+      // Evitamos recargar si ya cargamos datos (para cuando usamos el botón atrás)
+      if(this.data.properties.length > 0) return;
+
       const response = await fetch('api.php?action=get_all&t=' + Date.now());
       const text = await response.text();
 
@@ -10,41 +13,33 @@ const app = {
 
       this.data = JSON.parse(text);
 
-      // Distribución correcta de contenidos
-      this.renderFeatured(); // 3 pisos para index.php
-      this.renderCatalog();  // Todos los pisos para oportunidades.php
-      this.renderBlog();     // Artículos para blog.php
-      this.renderAdmin();     // Pisos para gestion.php
+      // Renderizar grids de listas (si estamos en Home u Oportunidades)
+      this.renderFeatured();
+      this.renderCatalog();
+      this.renderBlog();
+      this.renderAdmin();
 
     } catch (error) {
       console.error("Error:", error);
-      alert("Error cargando datos.");
     }
   },
 
-  // --- 1. HOME: Mostrar solo los 3 primeros ---
+  // --- FUNCIONES DE RENDERIZADO (Misma lógica que antes) ---
   renderFeatured: function() {
     const container = document.getElementById('featured-grid');
-    if (!container) return; // Si no estás en index, no hace nada
-
-    const items = this.data.properties.slice(0, 3); // Solo los 3 primeros
-    container.innerHTML = this.createCardsHTML(items);
+    if (!container) return;
+    container.innerHTML = this.createCardsHTML(this.data.properties.slice(0, 3));
   },
 
-  // --- 2. OPORTUNIDADES: Mostrar todos ---
   renderCatalog: function() {
     const container = document.getElementById('catalog-grid');
-    if (!container) return; // Si no estás en oportunidades, no hace nada
-
-    const items = this.data.properties; // Todos
-    container.innerHTML = this.createCardsHTML(items);
+    if (!container) return;
+    container.innerHTML = this.createCardsHTML(this.data.properties);
   },
 
-  // --- 3. BLOG: Mostrar solo artículos ---
   renderBlog: function() {
     const container = document.getElementById('blog-grid');
-    if (!container) return; // Si no estás en blog, no hace nada
-
+    if (!container) return;
     container.innerHTML = this.data.posts.map(item => `
     <div class="post-card">
     <div class="card-image-wrapper" style="height: 200px;">
@@ -59,11 +54,9 @@ const app = {
     `).join('');
   },
 
-  // --- 4. ADMIN ---
   renderAdmin: function() {
     const tbody = document.querySelector('#admin-table tbody');
     if (!tbody) return;
-
     tbody.innerHTML = this.data.properties.map(item => `
     <tr>
     <td><img src="${item.image}" alt="mini" style="width:50px; height:35px; object-fit:cover; border-radius:4px;"></td>
@@ -78,8 +71,8 @@ const app = {
     `).join('');
   },
 
-  // --- GENERADOR DE TARJETAS (Compartido) ---
   createCardsHTML: function(items) {
+    if(!items) return '';
     return items.map(item => `
     <div class="project-card">
     <div class="card-image-wrapper">
@@ -113,12 +106,16 @@ const app = {
     `).join('');
   },
 
-  // --- DETALLES ---
+  // --- CARGAR DETALLES (Arreglado) ---
   loadPropertyDetail: function() {
     const params = new URLSearchParams(window.location.search);
     const id = parseInt(params.get('id'));
     const item = this.data.properties.find(x => x.id === id);
-    if (!item) return;
+
+    if (!item) {
+      document.getElementById('detail-container').innerHTML = '<p style="padding:20px;">No se encontraron datos del piso. Recarga la página.</p>';
+      return;
+    }
 
     document.getElementById('detail-image').src = item.image;
     document.getElementById('detail-title').innerText = item.title;
@@ -131,11 +128,16 @@ const app = {
     document.getElementById('detail-funded').innerText = item.funded;
   },
 
+  // --- CARGAR ARTICULO (Arreglado) ---
   loadBlogDetail: function() {
     const params = new URLSearchParams(window.location.search);
     const id = parseInt(params.get('id'));
     const item = this.data.posts.find(x => x.id === id);
-    if (!item) return;
+
+    if (!item) {
+      document.getElementById('article-content').innerHTML = '<p style="padding:20px;">Artículo no encontrado. Recarga la página.</p>';
+      return;
+    }
 
     document.getElementById('article-date').innerText = item.date;
     document.getElementById('article-title').innerText = item.title;
@@ -177,7 +179,7 @@ const app = {
         if(result.status === 'success') {
           this.resetForm();
           await this.init();
-          alert('Guardado correctamente');
+          alert('Guardado');
         }
       } catch (error) { alert('Error al guardar'); }
   },
@@ -225,6 +227,7 @@ const app = {
   }
 };
 
+// Inicialización global para listas
 document.addEventListener('DOMContentLoaded', () => {
   app.init();
 });
