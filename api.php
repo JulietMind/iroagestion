@@ -79,8 +79,6 @@ if ($action == 'delete_property') {
     exit;
 }
 
-// ... (código anterior de get_all, save_property, delete_property) ...
-
 // --- NUEVO: Obtener SOLO un piso ---
 if ($action == 'get_property') {
     $id = $_GET['id'];

@@ -13,33 +13,41 @@ const app = {
 
       this.data = JSON.parse(text);
 
-      // Renderizar grids de listas (si estamos en Home u Oportunidades)
-      this.renderFeatured();
-      this.renderCatalog();
-      this.renderBlog();
-      this.renderAdmin();
+      // Renderizar grids de listas
+      this.renderFeatured(); // Para index.php
+      this.renderCatalog();  // Para oportunidades.php
+      this.renderBlog();     // Para blog.php
+      this.renderAdmin();     // Para gestion.php
 
     } catch (error) {
       console.error("Error:", error);
+      alert("Error cargando datos.");
     }
   },
 
-  // --- FUNCIONES DE RENDERIZADO (Misma lógica que antes) ---
+  // --- 1. HOME: Mostrar solo los 3 primeros ---
   renderFeatured: function() {
     const container = document.getElementById('featured-grid');
     if (!container) return;
-    container.innerHTML = this.createCardsHTML(this.data.properties.slice(0, 3));
+
+    const items = this.data.properties.slice(0, 3);
+    container.innerHTML = this.createCardsHTML(items);
   },
 
+  // --- 2. OPORTUNIDADES: Mostrar todos ---
   renderCatalog: function() {
     const container = document.getElementById('catalog-grid');
     if (!container) return;
-    container.innerHTML = this.createCardsHTML(this.data.properties);
+
+    const items = this.data.properties;
+    container.innerHTML = this.createCardsHTML(items);
   },
 
+  // --- 3. BLOG: Mostrar solo artículos ---
   renderBlog: function() {
     const container = document.getElementById('blog-grid');
     if (!container) return;
+
     container.innerHTML = this.data.posts.map(item => `
     <div class="post-card">
     <div class="card-image-wrapper" style="height: 200px;">
@@ -54,9 +62,11 @@ const app = {
     `).join('');
   },
 
+  // --- 4. ADMIN PANEL ---
   renderAdmin: function() {
     const tbody = document.querySelector('#admin-table tbody');
     if (!tbody) return;
+
     tbody.innerHTML = this.data.properties.map(item => `
     <tr>
     <td><img src="${item.image}" alt="mini" style="width:50px; height:35px; object-fit:cover; border-radius:4px;"></td>
@@ -71,6 +81,7 @@ const app = {
     `).join('');
   },
 
+  // --- 5. GENERADOR DE TARJETAS ---
   createCardsHTML: function(items) {
     if(!items) return '';
     return items.map(item => `
@@ -106,45 +117,77 @@ const app = {
     `).join('');
   },
 
-  // --- CARGAR DETALLES (Arreglado) ---
-  loadPropertyDetail: function() {
-    const params = new URLSearchParams(window.location.search);
-    const id = parseInt(params.get('id'));
-    const item = this.data.properties.find(x => x.id === id);
+  // --- 6. NUEVAS FUNCIONES: CARGA DIRECTA (Para ficha.php y articulo.php) ---
+  // Estas funciones piden solo UN dato específico al servidor, lo que es más rápido.
 
-    if (!item) {
-      document.getElementById('detail-container').innerHTML = '<p style="padding:20px;">No se encontraron datos del piso. Recarga la página.</p>';
+  fetchPropertyDetail: async function() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    if(!id) {
+      if(document.getElementById('detail-container')) document.getElementById('detail-container').innerHTML = '<p style="padding:20px; color:white;">ID de piso no especificado.</p>';
       return;
     }
 
-    document.getElementById('detail-image').src = item.image;
-    document.getElementById('detail-title').innerText = item.title;
-    document.getElementById('detail-location-text').innerText = item.location;
-    document.getElementById('detail-profit').innerText = item.profit;
-    document.getElementById('detail-duration').innerText = item.duration;
-    document.getElementById('detail-min').innerText = item.min;
-    document.getElementById('detail-desc').innerHTML = item.description || "Sin descripción.";
-    document.getElementById('detail-progress').style.width = item.progress + "%";
-    document.getElementById('detail-funded').innerText = item.funded;
+    try {
+      const response = await fetch('api.php?action=get_property&id=' + id);
+      const item = await response.json();
+
+      if (!item) {
+        document.getElementById('detail-container').innerHTML = '<p style="padding:20px; color:white;">Piso no encontrado.</p>';
+        return;
+      }
+
+      // Pintar datos
+      document.getElementById('detail-image').src = item.image;
+      document.getElementById('detail-title').innerText = item.title;
+      document.getElementById('detail-location-text').innerText = item.location;
+      document.getElementById('detail-profit').innerText = item.profit;
+      document.getElementById('detail-duration').innerText = item.duration;
+      document.getElementById('detail-min').innerText = item.min;
+      document.getElementById('detail-desc').innerHTML = item.description || "Sin descripción.";
+      document.getElementById('detail-progress').style.width = item.progress + "%";
+      document.getElementById('detail-funded').innerText = item.funded;
+
+    } catch (error) {
+      console.error("Error cargando ficha:", error);
+      if(document.getElementById('detail-container')) document.getElementById('detail-container').innerHTML = '<p style="padding:20px; color:#ef4444;">Error al cargar los datos.</p>';
+    }
   },
 
-  // --- CARGAR ARTICULO (Arreglado) ---
-  loadBlogDetail: function() {
+  fetchBlogDetail: async function() {
     const params = new URLSearchParams(window.location.search);
-    const id = parseInt(params.get('id'));
-    const item = this.data.posts.find(x => x.id === id);
+    const id = params.get('id');
 
-    if (!item) {
-      document.getElementById('article-content').innerHTML = '<p style="padding:20px;">Artículo no encontrado. Recarga la página.</p>';
+    if(!id) {
+      if(document.getElementById('article-content')) document.getElementById('article-content').innerHTML = '<p>Artículo no especificado.</p>';
       return;
     }
 
-    document.getElementById('article-date').innerText = item.date;
-    document.getElementById('article-title').innerText = item.title;
-    document.getElementById('article-body').innerHTML = item.body;
+    try {
+      const response = await fetch('api.php?action=get_post&id=' + id);
+      const item = await response.json();
+
+      if (!item) {
+        document.getElementById('article-content').innerHTML = '<p>Artículo no encontrado.</p>';
+        return;
+      }
+
+      document.getElementById('article-date').innerText = item.date;
+      document.getElementById('article-title').innerText = item.title;
+      document.getElementById('article-body').innerHTML = item.body;
+
+    } catch (error) {
+      console.error("Error cargando artículo:", error);
+      document.getElementById('article-content').innerHTML = '<p style="color:#ef4444;">Error al cargar el artículo.</p>';
+    }
   },
 
-  // --- ADMIN ACTIONS ---
+  // --- 7. FUNCIONES VIEJAS (Mantenidas por compatibilidad, aunque ya no se usan para las páginas nuevas) ---
+  loadPropertyDetail: function() { /* Reemplazada por fetchPropertyDetail */ },
+  loadBlogDetail: function() { /* Reemplazada por fetchBlogDetail */ },
+
+  // --- 8. ADMIN ACTIONS ---
   saveProperty: async function(e) {
     e.preventDefault();
     const id = document.getElementById('prop-id').value;
@@ -227,72 +270,6 @@ const app = {
   }
 };
 
-// --- CARGAR FICHA DIRECTA DEL SERVIDOR (Inmediata) ---
-fetchPropertyDetail: async function() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id');
-
-  if(!id) {
-    document.getElementById('detail-container').innerHTML = '<p style="padding:20px; color:white;">ID de piso no especificado.</p>';
-    return;
-  }
-
-  try {
-    const response = await fetch('api.php?action=get_property&id=' + id);
-    const item = await response.json();
-
-    if (!item) {
-      document.getElementById('detail-container').innerHTML = '<p style="padding:20px; color:white;">Piso no encontrado.</p>';
-      return;
-    }
-
-    // Pintar datos
-    document.getElementById('detail-image').src = item.image;
-    document.getElementById('detail-title').innerText = item.title;
-    document.getElementById('detail-location-text').innerText = item.location;
-    document.getElementById('detail-profit').innerText = item.profit;
-    document.getElementById('detail-duration').innerText = item.duration;
-    document.getElementById('detail-min').innerText = item.min;
-    document.getElementById('detail-desc').innerHTML = item.description || "Sin descripción.";
-    document.getElementById('detail-progress').style.width = item.progress + "%";
-    document.getElementById('detail-funded').innerText = item.funded;
-
-  } catch (error) {
-    console.error("Error cargando ficha:", error);
-    document.getElementById('detail-container').innerHTML = '<p style="padding:20px; color:#ef4444;">Error al cargar los datos.</p>';
-  }
-},
-
-// --- CARGAR ARTICULO DIRECTO DEL SERVIDOR (Inmediata) ---
-fetchBlogDetail: async function() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id');
-
-  if(!id) {
-    document.getElementById('article-body').innerHTML = '<p>Artículo no especificado.</p>';
-    return;
-  }
-
-  try {
-    const response = await fetch('api.php?action=get_post&id=' + id);
-    const item = await response.json();
-
-    if (!item) {
-      document.getElementById('article-body').innerHTML = '<p>Artículo no encontrado.</p>';
-      return;
-    }
-
-    document.getElementById('article-date').innerText = item.date;
-    document.getElementById('article-title').innerText = item.title;
-    document.getElementById('article-body').innerHTML = item.body;
-
-  } catch (error) {
-    console.error("Error cargando artículo:", error);
-    document.getElementById('article-body').innerHTML = '<p style="color:#ef4444;">Error al cargar el artículo.</p>';
-  }
-},
-
-// Inicialización global para listas
 document.addEventListener('DOMContentLoaded', () => {
   app.init();
 });
