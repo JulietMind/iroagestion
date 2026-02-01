@@ -153,9 +153,9 @@
 
                 <ul class="nav-links">
                     <li><a href="index.php">Inicio</a></li>
+                    <li><a href="oportunidades.php">Oportunidades</a></li>
                     <li><a href="sobre-nosotros.php">Sobre Nosotros</a></li>
                     <li><a href="como-funciona.php">Cómo Funciona</a></li>
-                    <li><a href="oportunidades.php">Oportunidades</a></li>
                     <li><a href="blog.php">Blog</a></li>
                     <li><a href="ayuda.php">Ayuda</a></li>
                 </ul>
