@@ -105,5 +105,39 @@ if ($action == 'get_post') {
     exit;
 }
 
+// --- NUEVO: GUARDAR POST ---
+if ($action == 'save_post' && $_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id = $_POST['id'] ?? '';
+    $title = $_POST['title'];
+    $date = $_POST['date'];
+    $image = $_POST['image'];
+    $body = $_POST['body'];
+
+    if ($id) {
+        $stmt = $conn->prepare("UPDATE posts SET title=?, date=?, image=?, body=? WHERE id=?");
+        $stmt->bind_param("ssssi", $title, $date, $image, $body, $id);
+        $executed = $stmt->execute();
+    } else {
+        $stmt = $conn->prepare("INSERT INTO posts (title, date, image, body) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $title, $date, $image, $body);
+        $executed = $stmt->execute();
+    }
+
+    if ($executed) {
+        echo json_encode(['status' => 'success']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => $conn->error]);
+    }
+    exit;
+}
+
+// --- NUEVO: BORRAR POST ---
+if ($action == 'delete_post') {
+    $id = $_GET['id'];
+    $conn->query("DELETE FROM posts WHERE id=$id");
+    echo json_encode(['status' => 'success']);
+    exit;
+}
+
 $conn->close();
 ?>
