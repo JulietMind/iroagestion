@@ -1,6 +1,7 @@
 const app = {
   data: { properties: [], posts: [] },
 
+  // --- 1. INICIALIZACIÓN GENERAL ---
   init: async function() {
     try {
       // Evitamos recargar si ya cargamos datos (para cuando usamos el botón atrás)
@@ -17,33 +18,36 @@ const app = {
       this.renderFeatured(); // Para index.php
       this.renderCatalog();  // Para oportunidades.php
       this.renderBlog();     // Para blog.php
-      this.renderAdmin();     // Para gestion.php
+      this.renderAdmin();     // Para gestion.php (Pisos)
+      this.renderAdminPosts(); // Para gestion.php (Blog)
 
     } catch (error) {
       console.error("Error:", error);
-      alert("Error cargando datos.");
+      alert("Error cargando datos. Refresca la página (F5).");
     }
   },
 
-  // --- 1. HOME: Mostrar solo los 3 primeros ---
+  // --- 2. HOME (3 Destacados) ---
   renderFeatured: function() {
     const container = document.getElementById('featured-grid');
     if (!container) return;
 
+    // Mostramos solo los primeros 3
     const items = this.data.properties.slice(0, 3);
     container.innerHTML = this.createCardsHTML(items);
   },
 
-  // --- 2. OPORTUNIDADES: Mostrar todos ---
+  // --- 3. CATÁLOGO (Todos) ---
   renderCatalog: function() {
     const container = document.getElementById('catalog-grid');
     if (!container) return;
 
+    // Mostramos todos
     const items = this.data.properties;
     container.innerHTML = this.createCardsHTML(items);
   },
 
-  // --- 3. BLOG: Mostrar solo artículos ---
+  // --- 4. BLOG (Lista Pública) ---
   renderBlog: function() {
     const container = document.getElementById('blog-grid');
     if (!container) return;
@@ -62,7 +66,7 @@ const app = {
     `).join('');
   },
 
-  // --- 4. ADMIN PANEL ---
+  // --- 5. ADMIN: PISOS ---
   renderAdmin: function() {
     const tbody = document.querySelector('#admin-table tbody');
     if (!tbody) return;
@@ -81,7 +85,25 @@ const app = {
     `).join('');
   },
 
-  // --- 5. GENERADOR DE TARJETAS ---
+  // --- 6. ADMIN: BLOG (NUEVO) ---
+  renderAdminPosts: function() {
+    const tbody = document.querySelector('#admin-posts-table tbody');
+    if (!tbody) return;
+
+    tbody.innerHTML = this.data.posts.map(item => `
+    <tr>
+    <td><img src="${item.image}" alt="mini" style="width:60px; height:40px; object-fit:cover; border-radius:4px;"></td>
+    <td>${item.title}</td>
+    <td>${item.date}</td>
+    <td>
+    <button class="btn-edit" onclick="app.editPost(${item.id})">Editar</button>
+    <button class="btn-del" onclick="app.deletePost(${item.id})">Borrar</button>
+    </td>
+    </tr>
+    `).join('');
+  },
+
+  // --- 7. HELPER DE TARJETAS (Compartido) ---
   createCardsHTML: function(items) {
     if(!items) return '';
     return items.map(item => `
@@ -117,17 +139,12 @@ const app = {
     `).join('');
   },
 
-  // --- 6. NUEVAS FUNCIONES: CARGA DIRECTA (Para ficha.php y articulo.php) ---
-  // Estas funciones piden solo UN dato específico al servidor, lo que es más rápido.
-
+  // --- 8. CARGA DIRECTA (Ficha y Artículo) ---
   fetchPropertyDetail: async function() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
-    if(!id) {
-      if(document.getElementById('detail-container')) document.getElementById('detail-container').innerHTML = '<p style="padding:20px; color:white;">ID de piso no especificado.</p>';
-      return;
-    }
+    if(!id) return;
 
     try {
       const response = await fetch('api.php?action=get_property&id=' + id);
@@ -138,7 +155,6 @@ const app = {
         return;
       }
 
-      // Pintar datos
       document.getElementById('detail-image').src = item.image;
       document.getElementById('detail-title').innerText = item.title;
       document.getElementById('detail-location-text').innerText = item.location;
@@ -151,7 +167,6 @@ const app = {
 
     } catch (error) {
       console.error("Error cargando ficha:", error);
-      if(document.getElementById('detail-container')) document.getElementById('detail-container').innerHTML = '<p style="padding:20px; color:#ef4444;">Error al cargar los datos.</p>';
     }
   },
 
@@ -159,17 +174,14 @@ const app = {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
-    if(!id) {
-      if(document.getElementById('article-content')) document.getElementById('article-content').innerHTML = '<p>Artículo no especificado.</p>';
-      return;
-    }
+    if(!id) return;
 
     try {
       const response = await fetch('api.php?action=get_post&id=' + id);
       const item = await response.json();
 
       if (!item) {
-        document.getElementById('article-content').innerHTML = '<p>Artículo no encontrado.</p>';
+        document.getElementById('article-content').innerHTML = '<p style="padding:20px; color:white;">Artículo no encontrado.</p>';
         return;
       }
 
@@ -179,15 +191,10 @@ const app = {
 
     } catch (error) {
       console.error("Error cargando artículo:", error);
-      document.getElementById('article-content').innerHTML = '<p style="color:#ef4444;">Error al cargar el artículo.</p>';
     }
   },
 
-  // --- 7. FUNCIONES VIEJAS (Mantenidas por compatibilidad, aunque ya no se usan para las páginas nuevas) ---
-  loadPropertyDetail: function() { /* Reemplazada por fetchPropertyDetail */ },
-  loadBlogDetail: function() { /* Reemplazada por fetchBlogDetail */ },
-
-  // --- 8. ADMIN ACTIONS ---
+  // --- 9. ACCIONES PISOS ---
   saveProperty: async function(e) {
     e.preventDefault();
     const id = document.getElementById('prop-id').value;
@@ -218,66 +225,52 @@ const app = {
           headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           body: params
         });
-
         const result = await response.json();
-
         if(result.status === 'success') {
-          this.resetForm();
-
-          // --- ARREGLO: Limpiamos memoria para forzar actualización ---
+          this.resetPropForm();
+          // ARREGLO: Limpiar memoria para que aparezca el nuevo piso
           this.data = { properties: [], posts: [] };
-
-          await this.init(); // Ahora si volverá a pedir los datos a la BD
-
-          alert('Guardado correctamente');
+          await this.init();
+          alert('Piso guardado correctamente');
         }
-      } catch (error) {
-        alert('Error al guardar');
-      }
+      } catch (error) { alert('Error al guardar'); }
   },
 
   deleteProp: async function(id) {
-    if(confirm('¿Borrar?')) {
-      // 1. Enviamos la orden de borrar a la base de datos
+    if(confirm('¿Borrar piso?')) {
       await fetch(`api.php?action=delete_property&id=${id}`);
-
-      // 2. Limpiamos la memoria temporal (this.data) para obligar a recargar
+      // ARREGLO: Limpiar memoria para que desaparezca el piso
       this.data = { properties: [], posts: [] };
-
-      // 3. Volvemos a pedir los datos a la API (ahora sí entrará)
       await this.init();
     }
   },
 
   editProp: function(id) {
-    // Usamos '==' (doble igual) para permitir comparar texto con número
-    // Esto soluciona el error donde PHP devuelve "1" y JS espera 1
-    const item = this.data.properties.find(x => x.id == id);
+    const item = this.data.properties.find(x => x.id === id);
+    if (!item) return;
 
-    if (!item) {
-      alert("No se pudo encontrar el piso en la memoria local. Intenta recargar la página.");
+    // Usamos '==' para compatibilidad de tipos
+    const itemFound = this.data.properties.find(x => x.id == id);
+
+    if(!itemFound) {
+      alert("No se encontró el piso. Recarga la página.");
       return;
     }
 
-    // Rellenamos el formulario con los datos
-    document.getElementById('prop-id').value = item.id;
-    document.getElementById('prop-title').value = item.title;
-    document.getElementById('prop-loc').value = item.location;
-    document.getElementById('prop-profit').value = item.profit;
-    document.getElementById('prop-duration').value = item.duration;
-    document.getElementById('prop-min').value = item.min;
-    document.getElementById('prop-badge').value = item.badge;
-    document.getElementById('prop-progress').value = item.progress;
-    document.getElementById('prop-funded').value = item.funded;
+    document.getElementById('prop-id').value = itemFound.id;
+    document.getElementById('prop-title').value = itemFound.title;
+    document.getElementById('prop-loc').value = itemFound.location;
+    document.getElementById('prop-profit').value = itemFound.profit;
+    document.getElementById('prop-duration').value = itemFound.duration;
+    document.getElementById('prop-min').value = itemFound.min;
+    document.getElementById('prop-badge').value = itemFound.badge;
+    document.getElementById('prop-progress').value = itemFound.progress;
+    document.getElementById('prop-funded').value = itemFound.funded;
+    document.getElementById('prop-desc').value = itemFound.description || '';
+    document.getElementById('prop-image-data').value = itemFound.image;
+    document.getElementById('prop-preview').style.backgroundImage = `url(${itemFound.image})`;
 
-    // Manejo seguro de descripción (si es nula, pone texto vacío)
-    document.getElementById('prop-desc').value = item.description || '';
-
-    // Cargar imagen en el campo oculto y en la vista previa
-    document.getElementById('prop-image-data').value = item.image;
-    document.getElementById('prop-preview').style.backgroundImage = `url(${item.image})`;
-
-    // (Opcional) Hacemos scroll suave hacia arriba para ver el formulario relleno
+    // Scroll suave al formulario
     window.scrollTo({ top: 0, behavior: 'smooth' });
   },
 
@@ -292,11 +285,93 @@ const app = {
     }
   },
 
-  resetForm: function() {
+  // --- 10. ACCIONES BLOG (NUEVO) ---
+  savePost: async function(e) {
+    e.preventDefault();
+    const id = document.getElementById('post-id').value;
+    const imageInput = document.getElementById('post-image-data').value;
+    let finalImage = imageInput;
+    if (!finalImage && !id) finalImage = `https://picsum.photos/seed/${Date.now()}/400/300`;
+
+      const formData = {
+        id: id,
+        title: document.getElementById('post-title').value,
+        date: document.getElementById('post-date').value,
+        image: finalImage,
+        body: document.getElementById('post-body').value
+      };
+
+      const params = new URLSearchParams();
+      for (const key in formData) params.append(key, formData[key]);
+
+      try {
+        const response = await fetch('api.php?action=save_post', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          body: params
+        });
+        const result = await response.json();
+        if(result.status === 'success') {
+          this.resetPostForm();
+          // Limpiar memoria para que aparezca el nuevo artículo
+          this.data = { properties: [], posts: [] };
+          await this.init();
+          alert('Artículo guardado');
+        }
+      } catch (error) { alert('Error al guardar'); }
+  },
+
+  deletePost: async function(id) {
+    if(confirm('¿Borrar artículo?')) {
+      await fetch(`api.php?action=delete_post&id=${id}`);
+      // Limpiar memoria
+      this.data = { properties: [], posts: [] };
+      await this.init();
+    }
+  },
+
+  editPost: function(id) {
+    const item = this.data.posts.find(x => x.id === id);
+    if (!item) return;
+
+    // Cambiar a la pestaña Blog (si está implementado en JS)
+    // Si usamos las pestañas del PHP anterior, esto es opcional, pero ayuda al flujo
+    // document.getElementById('tab-blog').click();
+
+    document.getElementById('post-id').value = item.id;
+    document.getElementById('post-title').value = item.title;
+    document.getElementById('post-date').value = item.date;
+    document.getElementById('post-body').value = item.body;
+    document.getElementById('post-image-data').value = item.image;
+    document.getElementById('post-preview').style.backgroundImage = `url(${item.image})`;
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  },
+
+  previewPostImage: function(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        document.getElementById('post-image-data').value = e.target.result;
+        document.getElementById('post-preview').style.backgroundImage = `url(${e.target.result})`;
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  },
+
+  // --- 11. LIMPIEZA DE FORMULARIOS ---
+  resetPropForm: function() {
     document.getElementById('prop-form').reset();
     document.getElementById('prop-id').value = '';
     document.getElementById('prop-image-data').value = '';
     document.getElementById('prop-preview').style.backgroundImage = 'none';
+  },
+
+  resetPostForm: function() {
+    document.getElementById('post-form').reset();
+    document.getElementById('post-id').value = '';
+    document.getElementById('post-image-data').value = '';
+    document.getElementById('post-preview').style.backgroundImage = 'none';
   }
 };
 
