@@ -50,6 +50,113 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 .card-btn { margin-top: 20px; width: 100%; background: linear-gradient(135deg, var(--primary), #b5952f); color: #000; font-weight: 700; border: none; padding: 12px; border-radius: 8px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
 
 @media(max-width: 768px) { .nav-links { display: none; } }
+
+/* --- NUEVO HERO PRO --- */
+.hero-pro {
+    position: relative;
+    padding: 100px 0;
+    overflow: hidden;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+/* Fondo animado sutil */
+.hero-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(270deg, #0f172a, #1e293b, #0f172a);
+    background-size: 600% 600%;
+    animation: gradientMove 15s ease infinite;
+    z-index: -2;
+}
+
+/* Patrón geométrico sutil de fondo */
+.hero-pattern {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+/* Efecto de luz dorada difuminada */
+.hero-glow {
+    position: absolute;
+    top: 20%; right: 10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(0,0,0,0) 70%);
+    filter: blur(60px);
+    z-index: -1;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 60px;
+}
+
+.hero-text h1 {
+    font-size: 4rem; line-height: 1.1;
+    margin-bottom: 25px;
+    background: linear-gradient(to right, #fff, #cbd5e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    max-width: 550px;
+}
+
+/* Tarjeta flotante visual */
+.hero-card-visual {
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero-img {
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+    z-index: 2;
+}
+
+/* Elemento decorativo detrás de la imagen */
+.hero-card-deco {
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 100%; height: 100%;
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    z-index: 1;
+    opacity: 0.3;
+}
+
+/* Animaciones */
+@keyframes gradientMove {
+    0% { background-position: 0% 50% }
+    50% { background-position: 100% 50% }
+    100% { background-position: 0% 50% }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+@media(max-width: 900px) {
+    .hero-content { grid-template-columns: 1fr; text-align: center; }
+    .hero-text h1 { font-size: 2.5rem; }
+    .hero-text p { margin: 0 auto 40px auto; }
+    .hero-card-visual { max-width: 500px; margin: 0 auto; }
+}
 </style>
 </head>
 <body>
