@@ -218,13 +218,22 @@ const app = {
           headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           body: params
         });
+
         const result = await response.json();
+
         if(result.status === 'success') {
           this.resetForm();
-          await this.init();
-          alert('Guardado');
+
+          // --- ARREGLO: Limpiamos memoria para forzar actualización ---
+          this.data = { properties: [], posts: [] };
+
+          await this.init(); // Ahora si volverá a pedir los datos a la BD
+
+          alert('Guardado correctamente');
         }
-      } catch (error) { alert('Error al guardar'); }
+      } catch (error) {
+        alert('Error al guardar');
+      }
   },
 
   deleteProp: async function(id) {
