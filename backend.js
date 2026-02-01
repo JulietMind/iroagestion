@@ -250,8 +250,16 @@ const app = {
   },
 
   editProp: function(id) {
-    const item = this.data.properties.find(x => x.id === id);
-    if (!item) return;
+    // Usamos '==' (doble igual) para permitir comparar texto con número
+    // Esto soluciona el error donde PHP devuelve "1" y JS espera 1
+    const item = this.data.properties.find(x => x.id == id);
+
+    if (!item) {
+      alert("No se pudo encontrar el piso en la memoria local. Intenta recargar la página.");
+      return;
+    }
+
+    // Rellenamos el formulario con los datos
     document.getElementById('prop-id').value = item.id;
     document.getElementById('prop-title').value = item.title;
     document.getElementById('prop-loc').value = item.location;
@@ -261,9 +269,16 @@ const app = {
     document.getElementById('prop-badge').value = item.badge;
     document.getElementById('prop-progress').value = item.progress;
     document.getElementById('prop-funded').value = item.funded;
+
+    // Manejo seguro de descripción (si es nula, pone texto vacío)
     document.getElementById('prop-desc').value = item.description || '';
+
+    // Cargar imagen en el campo oculto y en la vista previa
     document.getElementById('prop-image-data').value = item.image;
     document.getElementById('prop-preview').style.backgroundImage = `url(${item.image})`;
+
+    // (Opcional) Hacemos scroll suave hacia arriba para ver el formulario relleno
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   },
 
   previewImage: function(input) {
