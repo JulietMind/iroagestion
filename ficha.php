@@ -62,7 +62,6 @@
 </div>
 
 <div style="text-align: center; margin-top: 40px;">
-<a href="gestion.php" class="btn">Invertir Ahora</a>
 <a href="javascript:history.back()" class="btn btn-outline" style="margin-left: 15px;">Volver</a>
 </div>
 </div>
