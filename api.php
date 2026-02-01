@@ -1,57 +1,45 @@
 <?php
-// --- 1. CONFIGURACIÓN DIRECTA (BLINDADA) ---
-$db_host = 'bbdd.iroagestion.com';
-$db_user = 'ddb267655';
-$db_pass = 'Iroapass90*';
-$db_name = 'ddb267655';
-
-// --- 2. CABECERAS JSON ---
-error_reporting(0); // Ocultamos errores visuales de PHP
+// Configuración de cabeceras para JSON
 header('Content-Type: application/json');
 header("Cache-Control: no-store, no-cache, must-reload");
 
-// --- 3. CONEXIÓN A LA BASE DE DATOS ---
-$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+// 1. CONEXIÓN (Carga db.php)
+// Si db.php falla (contraseña incorrecta), se detiene aquí devolviendo JSON.
+require 'db.php';
 
-// Si la conexión falla, generamos un mensaje de error JSON MANUALMENTE
-if ($conn->connect_error) {
-    // Esto hace que incluso si falla la BD, el navegador lea JSON y el JS te diga qué pasó
-    $response = ['error' => true, 'message' => 'Error de conexión BD: ' . $conn->connect_error];
-    echo json_encode($response);
-    exit;
-}
-
-// Forzamos caracteres especiales
-$conn->set_charset("utf8mb4");
-
-// --- 4. LÓGICA DE LA API ---
 $action = $_GET['action'] ?? '';
 
-// OBTENER DATOS
+// 2. LEER DATOS
 if ($action == 'get_all') {
-    $response = ['properties' => [], 'posts' => []];
+    $response = [];
 
     // Pisos
     $props_result = $conn->query("SELECT * FROM properties ORDER BY id DESC");
     if ($props_result) {
+        $response['properties'] = [];
         while($row = $props_result->fetch_assoc()) {
             $response['properties'][] = $row;
         }
+    } else {
+        $response['properties'] = [];
     }
 
     // Posts
     $posts_result = $conn->query("SELECT * FROM posts ORDER BY id DESC");
     if ($posts_result) {
+        $response['posts'] = [];
         while($row = $posts_result->fetch_assoc()) {
             $response['posts'][] = $row;
         }
+    } else {
+        $response['posts'] = [];
     }
 
     echo json_encode($response);
     exit;
 }
 
-// GUARDAR
+// 3. GUARDAR
 if ($action == 'save_property' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'] ?? '';
     $title = $_POST['title'];
@@ -83,7 +71,7 @@ if ($action == 'save_property' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     exit;
 }
 
-// BORRAR
+// 4. BORRAR
 if ($action == 'delete_property') {
     $id = $_GET['id'];
     $conn->query("DELETE FROM properties WHERE id=$id");
