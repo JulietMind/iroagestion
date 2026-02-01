@@ -1,33 +1,85 @@
 <?php include 'header.php'; ?>
 <script src="backend.js"></script>
+
 <style>
+/* Asegúrate de tener estos estilos si no estaban */
 .detail-hero { position: relative; height: 50vh; overflow: hidden; margin-bottom: 40px; }
 .detail-hero img { width: 100%; height: 100%; object-fit: cover; }
-.info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
-.info-box { background: var(--bg-card); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+.detail-hero-overlay { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(15, 23, 42, 1), transparent); padding: 60px 0 20px; }
+.detail-title { font-size: 3rem; color: white; margin: 0; }
+.detail-location { font-size: 1.2rem; color: var(--primary); margin-top: 10px; }
+.info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; background: var(--bg-card); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 40px; }
+.info-item h3 { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
+.info-item p { font-size: 1.5rem; color: white; font-weight: 700; }
+.info-item.gold p { color: var(--primary); }
+.detail-desc { background: var(--bg-card); padding: 40px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); line-height: 1.8; font-size: 1.1rem; color: #cbd5e1; }
 </style>
+
 <div class="detail-hero">
-<img id="detail-image" src="" alt="Detalle">
-<div style="position: absolute; bottom: 0; width: 100%; background: linear-gradient(to top, rgba(15,23,42,1), transparent); padding: 40px 0;">
+<img id="detail-image" src="" alt="Detalle Inmueble">
+<div class="detail-hero-overlay">
 <div class="container">
-<h1 id="detail-title" style="color: white; font-family: 'Playfair Display', serif; margin: 0;">...</h1>
-<div id="detail-location-text" style="color: var(--primary);">...</div>
+<h1 id="detail-title" class="detail-title">Cargando...</h1>
+<div class="detail-location">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+<span id="detail-location-text">...</span>
 </div>
 </div>
 </div>
+</div>
+
 <div class="container" id="detail-container">
+<!-- Métricas -->
 <div class="info-grid">
-<div class="info-box"><p style="color:var(--text-muted); margin:0;">Rentabilidad</p><h3 id="detail-profit" style="color:var(--primary); margin:10px 0;">...</h3></div>
-<div class="info-box"><p style="color:var(--text-muted); margin:0;">Duración</p><h3 id="detail-duration" style="color:white; margin:10px 0;">...</h3></div>
-<div class="info-box"><p style="color:var(--text-muted); margin:0;">Min. Inversión</p><h3 id="detail-min" style="color:white; margin:10px 0;">...</h3></div>
+<div class="info-item gold">
+<h3>Rentabilidad Esperada</h3>
+<p id="detail-profit">...</p>
 </div>
-<div style="max-width: 600px; margin: 0 auto 40px;">
-<div style="display:flex; justify-content:space-between; color:var(--text-muted); margin-bottom:5px;"><span>Fondos</span><span id="detail-funded">...</span></div>
-<div style="height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden;"><div id="detail-progress" style="height: 100%; background: var(--primary); width: 0%;"></div></div>
+<div class="info-item">
+<h3>Duración</h3>
+<p id="detail-duration">...</p>
 </div>
-<div style="background: var(--bg-card); padding: 40px; border-radius: 12px; color: #e2e8f0; line-height: 1.8;">
-<p id="detail-desc">Cargando descripción...</p>
+<div class="info-item">
+<h3>Inversión Mínima</h3>
+<p id="detail-min">...</p>
 </div>
 </div>
-<script>app.loadPropertyDetail();</script>
+
+<!-- Barra de Progreso -->
+<div style="max-width: 600px; margin-bottom: 50px;">
+<div style="display: flex; justify-content: space-between; color: var(--text-muted); margin-bottom: 10px;">
+<span>Fondos Recaudados</span>
+<span id="detail-funded">...</span>
+</div>
+<div style="height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden;">
+<div id="detail-progress" style="height: 100%; background: var(--primary); width: 0%; transition: width 1s;"></div>
+</div>
+</div>
+
+<!-- Descripción -->
+<div id="detail-desc" class="detail-desc">
+<!-- Se rellena con JS -->
+</div>
+
+<div style="text-align: center; margin-top: 40px;">
+<a href="gestion.php" class="btn">Invertir Ahora</a>
+<a href="javascript:history.back()" class="btn btn-outline" style="margin-left: 15px;">Volver</a>
+</div>
+</div>
+
 <?php include 'footer.php'; ?>
+
+<!-- SCRIPT ARREGLADO: ESPERA A LOS DATOS -->
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Aseguramos que los datos están cargados
+    // Si se recarga la página (f5), app.data podría estar vacío porque no se volvió a llamar init en la lógica anterior.
+    if (app.data.properties.length === 0) {
+        await app.init();
+    }
+    // 2. Ahora pintamos
+    app.loadPropertyDetail();
+});
+</script>
+</body>
+</html>
