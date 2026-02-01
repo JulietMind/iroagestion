@@ -1,0 +1,12 @@
+# Archivos de sistema y editores
+.DS_Store
+Thumbs.db
+.kate-swp
+.directory
+
+# Logs y temporales
+*.log
+tmp/
+
+# Archivos de configuración con contraseñas (ejemplo)
+config/db_pass.php
