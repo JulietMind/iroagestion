@@ -4,55 +4,47 @@ const app = {
   init: async function() {
     try {
       const response = await fetch('api.php?action=get_all&t=' + Date.now());
+      const text = await response.text();
 
-      // Si el servidor responde con OK (200)
-      if (response.ok) {
-        // Intentamos parsear como JSON
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.indexOf("application/json") !== -1) {
-          this.data = await response.json();
-        } else {
-          // Si la respuesta no es JSON, leemos el texto para ver el error
-          const text = await response.text();
-          console.error("La respuesta no es JSON:", text);
-          alert("Error: El servidor devolvió texto en lugar de datos JSON. Revisa la consola (F12).");
-          return;
-        }
-      } else {
-        // Error HTTP (404, 500, etc)
-        console.error("Error HTTP:", response.status, response.statusText);
-        alert("Error de conexión: " + response.status);
-        return;
-      }
+      if (!text) throw new Error("Respuesta vacía del servidor");
 
-      // Renderizar si los datos cargaron
-      this.renderFeatured();
-      this.renderCatalog();
-      this.renderBlog();
-      this.renderAdmin();
+      this.data = JSON.parse(text);
+
+      // Distribución correcta de contenidos
+      this.renderFeatured(); // 3 pisos para index.php
+      this.renderCatalog();  // Todos los pisos para oportunidades.php
+      this.renderBlog();     // Artículos para blog.php
+      this.renderAdmin();     // Pisos para gestion.php
 
     } catch (error) {
-      console.error("Error crítico al cargar:", error);
-      alert("Error cargando la web. Asegúrate de que api.php existe y db.php tiene las credenciales correctas.");
+      console.error("Error:", error);
+      alert("Error cargando datos.");
     }
   },
 
-  // --- RENDERIZADO ---
+  // --- 1. HOME: Mostrar solo los 3 primeros ---
   renderFeatured: function() {
     const container = document.getElementById('featured-grid');
-    if (!container) return;
-    container.innerHTML = this.createCards(this.data.properties.slice(0, 3));
+    if (!container) return; // Si no estás en index, no hace nada
+
+    const items = this.data.properties.slice(0, 3); // Solo los 3 primeros
+    container.innerHTML = this.createCardsHTML(items);
   },
 
+  // --- 2. OPORTUNIDADES: Mostrar todos ---
   renderCatalog: function() {
     const container = document.getElementById('catalog-grid');
-    if (!container) return;
-    container.innerHTML = this.createCards(this.data.properties);
+    if (!container) return; // Si no estás en oportunidades, no hace nada
+
+    const items = this.data.properties; // Todos
+    container.innerHTML = this.createCardsHTML(items);
   },
 
+  // --- 3. BLOG: Mostrar solo artículos ---
   renderBlog: function() {
     const container = document.getElementById('blog-grid');
-    if (!container) return;
+    if (!container) return; // Si no estás en blog, no hace nada
+
     container.innerHTML = this.data.posts.map(item => `
     <div class="post-card">
     <div class="card-image-wrapper" style="height: 200px;">
@@ -67,9 +59,11 @@ const app = {
     `).join('');
   },
 
+  // --- 4. ADMIN ---
   renderAdmin: function() {
     const tbody = document.querySelector('#admin-table tbody');
     if (!tbody) return;
+
     tbody.innerHTML = this.data.properties.map(item => `
     <tr>
     <td><img src="${item.image}" alt="mini" style="width:50px; height:35px; object-fit:cover; border-radius:4px;"></td>
@@ -84,8 +78,8 @@ const app = {
     `).join('');
   },
 
-  createCards: function(items) {
-    if(!items) return '';
+  // --- GENERADOR DE TARJETAS (Compartido) ---
+  createCardsHTML: function(items) {
     return items.map(item => `
     <div class="project-card">
     <div class="card-image-wrapper">
@@ -125,6 +119,7 @@ const app = {
     const id = parseInt(params.get('id'));
     const item = this.data.properties.find(x => x.id === id);
     if (!item) return;
+
     document.getElementById('detail-image').src = item.image;
     document.getElementById('detail-title').innerText = item.title;
     document.getElementById('detail-location-text').innerText = item.location;
@@ -141,12 +136,13 @@ const app = {
     const id = parseInt(params.get('id'));
     const item = this.data.posts.find(x => x.id === id);
     if (!item) return;
+
     document.getElementById('article-date').innerText = item.date;
     document.getElementById('article-title').innerText = item.title;
     document.getElementById('article-body').innerHTML = item.body;
   },
 
-  // --- ADMIN ---
+  // --- ADMIN ACTIONS ---
   saveProperty: async function(e) {
     e.preventDefault();
     const id = document.getElementById('prop-id').value;
@@ -181,7 +177,7 @@ const app = {
         if(result.status === 'success') {
           this.resetForm();
           await this.init();
-          alert('Guardado');
+          alert('Guardado correctamente');
         }
       } catch (error) { alert('Error al guardar'); }
   },
