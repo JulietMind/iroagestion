@@ -129,6 +129,13 @@ if (isset($_GET['logout'])) {
                 <button onclick="app.savePageContent()" class="login-btn">Guardar Cambios</button>
             </div>
         </div>
+
+        <!-- SCRIPT ESPECIAL PARA SUBPÁGINAS -->
+        <!-- Indicamos a backend.js qué página estamos cargando -->
+        <script>
+        window.currentSlug = 'gestion';
+        </script>
+
         <script src="backend.js"></script>
     <?php endif; ?>
 </body>

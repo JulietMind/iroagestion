@@ -31,7 +31,7 @@
             </div>
         </div>
         <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; margin-top: 40px;">
-            <p>&copy; 2023 Iroa Gestión. Todos los derechos reservados.</p>
+            <p>&copy; 2026 Iroa Gestión. Todos los derechos reservados.</p>
         </div>
     </div>
 </footer>

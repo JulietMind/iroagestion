@@ -31,13 +31,15 @@
     </div>
 </main>
 
-<footer style="padding: 60px 0 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; color: var(--text-muted);">
-    <div class="container"><p>&copy; 2023 Iroa Gestión.</p></div>
-</footer>
+<!-- footer -->
+<?php include 'footer.php'; ?>
 
+<!-- SCRIPT ESPECIAL PARA SUBPÁGINAS -->
+<!-- Indicamos a backend.js qué página estamos cargando -->
 <script>
-    window.currentSlug = 'como-funciona';
+window.currentSlug = 'como-funciona';
 </script>
+
 <script src="backend.js"></script>
 </body>
 </html>

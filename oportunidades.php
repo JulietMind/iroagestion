@@ -142,10 +142,14 @@
     <div id="featured-grid" class="project-grid"></div>
 </main>
 
-<!-- Footer Minimalista -->
-<footer style="padding: 40px 0; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px;">
-    <div class="container"><p>&copy; 2023 Iroa Gestión. Inversión Segura.</p></div>
-</footer>
+<!-- footer -->
+<?php include 'footer.php'; ?>
+
+<!-- SCRIPT ESPECIAL PARA SUBPÁGINAS -->
+<!-- Indicamos a backend.js qué página estamos cargando -->
+<script>
+window.currentSlug = 'oportunidades';
+</script>
 
 <script src="backend.js"></script>
 </body>
