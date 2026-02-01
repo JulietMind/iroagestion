@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost'; // O el host que te indique el panel de control
-$db_user = 'USUARIO_DE_TU_BD';
-$db_pass = 'CONTRASEÑA_DE_TU_BD';
-$db_name = 'NOMBRE_DE_TU_BD';
+$host = 'bbdd.iroagestion.com'; // O el host que te indique el panel de control
+$db_user = 'ddb267655';
+$db_pass = 'Iroapass90*';
+$db_name = 'ddb267655';
 
 $conn = new mysqli($host, $db_user, $db_pass, $db_name);
 
