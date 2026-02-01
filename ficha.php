@@ -69,17 +69,13 @@
 
 <?php include 'footer.php'; ?>
 
-<!-- SCRIPT ARREGLADO: ESPERA A LOS DATOS -->
+<!-- SCRIPT MODIFICADO: CARGA INDEPENDIENTE Y RÁPIDA -->
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Aseguramos que los datos están cargados
-    // Si se recarga la página (f5), app.data podría estar vacío porque no se volvió a llamar init en la lógica anterior.
-    if (app.data.properties.length === 0) {
-        await app.init();
-    }
-    // 2. Ahora pintamos
-    app.loadPropertyDetail();
+    // Llamamos directamente a la función que pide SOLO este piso
+    await app.fetchPropertyDetail();
 });
 </script>
+
 </body>
 </html>
