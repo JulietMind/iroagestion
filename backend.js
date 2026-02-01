@@ -229,7 +229,13 @@ const app = {
 
   deleteProp: async function(id) {
     if(confirm('¿Borrar?')) {
+      // 1. Enviamos la orden de borrar a la base de datos
       await fetch(`api.php?action=delete_property&id=${id}`);
+
+      // 2. Limpiamos la memoria temporal (this.data) para obligar a recargar
+      this.data = { properties: [], posts: [] };
+
+      // 3. Volvemos a pedir los datos a la API (ahora sí entrará)
       await this.init();
     }
   },
