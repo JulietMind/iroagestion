@@ -2,7 +2,7 @@
 // --- 1. CONFIGURACIÓN DIRECTA (BLINDADA) ---
 $db_host = 'bbdd.iroagestion.com';
 $db_user = 'ddb267655';
-$db_pass = 'Iroagestion90*';
+$db_pass = 'Iroapass90*';
 $db_name = 'ddb267655';
 
 // --- 2. CABECERAS JSON ---
