@@ -1,57 +1,47 @@
 <?php
-// Forzar salida JSON limpia
+// Forzamos la salida a ser JSON estricto
+error_reporting(0);
 header('Content-Type: application/json');
 header("Cache-Control: no-store, no-cache, must-revalidate");
 
-// Intentar conectar
 require 'db.php';
 
-// Si llegamos aquí, la conexión falló y db.php mató el script con "die()"
-// O bien no existe db.php.
-// Como db.php hace die(), este código no se ejecuta si falla.
-// Por lo tanto, si llegamos aquí, la conexión fue EXITOSA.
-
+// Si db.php falla, el script se detiene aquí. Si llegamos aquí, conectamos.
 $action = $_GET['action'] ?? '';
 
 // 1. LEER DATOS
 if ($action == 'get_all') {
     $response = [];
 
-    // Pisos
-    $props_result = $conn->query("SELECT * FROM properties ORDER BY id DESC");
-    if ($props_result) {
+    // Obtenemos Pisos
+    $query_props = $conn->query("SELECT * FROM properties ORDER BY id DESC");
+    if ($query_props) {
         $response['properties'] = [];
-        while($row = $props_result->fetch_assoc()) {
+        while($row = $query_props->fetch_assoc()) {
             $response['properties'][] = $row;
         }
     } else {
-        $response['properties'] = [];
+        $response['properties'] = []; // Tabla vacía o error, pero no rompemos JSON
     }
 
-    // Posts
-    $posts_result = $conn->query("SELECT * FROM posts ORDER BY id DESC");
-    if ($posts_result) {
+    // Obtenemos Posts
+    $query_posts = $conn->query("SELECT * FROM posts ORDER BY id DESC");
+    if ($query_posts) {
         $response['posts'] = [];
-        while($row = $posts_result->fetch_assoc()) {
+        while($row = $query_posts->fetch_assoc()) {
             $response['posts'][] = $row;
         }
     } else {
         $response['posts'] = [];
     }
 
-    // IMPORTANTE: Salida limpia
+    // Salida final limpia
     echo json_encode($response);
     exit;
 }
 
-// 2. GUARDAR
+// 2. GUARDAR (Si esto funciona, la BD conecta bien)
 if ($action == 'save_property' && $_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Verificamos conexión de nuevo por si acaso
-    if ($conn->connect_error) {
-        echo json_encode(['status' => 'error', 'message' => 'DB Connection Lost']);
-        exit;
-    }
-
     $id = $_POST['id'] ?? '';
     $title = $_POST['title'];
     $location = $_POST['location'];
