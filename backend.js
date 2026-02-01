@@ -152,45 +152,58 @@ const app = {
     e.preventDefault();
 
     const id = document.getElementById('prop-id').value;
+    const imageInput = document.getElementById('prop-image-data').value;
+
+    // Si no hay imagen nueva, mantener la existente
+    let finalImage = imageInput;
+    if (!finalImage && !id) {
+      finalImage = `https://picsum.photos/seed/${Date.now()}/400/300`;
+    }
+
+    // Recopilar datos
     const formData = {
       id: id,
       title: document.getElementById('prop-title').value,
       location: document.getElementById('prop-loc').value,
-      image: document.getElementById('prop-image-data').value,
       profit: document.getElementById('prop-profit').value,
       duration: document.getElementById('prop-duration').value,
       min: document.getElementById('prop-min').value,
       badge: document.getElementById('prop-badge').value,
       progress: document.getElementById('prop-progress').value,
       funded: document.getElementById('prop-funded').value,
-      description: document.getElementById('prop-desc').value
+      description: document.getElementById('prop-desc').value,
+      image: finalImage
     };
 
-    // Si no hay imagen nueva, mantener la anterior (necesitaríamos lógica extra o enviar siempre la data)
-    // Para simplificar, enviamos siempre lo que hay en el hidden input.
-    // Si es una creación nueva y vacío, usamos default.
-    if(!formData.image && !id) {
-      formData.image = `https://picsum.photos/seed/${Date.now()}/400/300`;
+    // --- PARTE CRÍTICA ARREGLADA ---
+    // Convertimos el objeto JS a un formato que PHP entienda correctamente
+    const params = new URLSearchParams();
+    for (const key in formData) {
+      params.append(key, formData[key]);
     }
 
-    // Enviar a PHP
-    const response = await fetch('api.php?action=save_property', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: new URLSearchParams(formData).toString()
-    });
+    try {
+      const response = await fetch('api.php?action=save_property', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: params // Enviamos el objeto params formateado
+      });
 
-    if(response.ok) {
-      this.resetPropForm();
-      await this.init(); // Recargar tabla
-      alert('Guardado en Base de Datos');
-    }
-  },
-
-  deleteProp: async function(id) {
-    if(confirm('¿Borrar piso de la base de datos?')) {
-      await fetch(`api.php?action=delete_property&id=${id}`);
-      await this.init();
+      if (response.ok) {
+        const result = await response.json();
+        if(result.status === 'success') {
+          this.resetPropForm();
+          await this.init(); // Recargar tabla
+          alert('Guardado en Base de Datos');
+        } else {
+          alert('Error del servidor al guardar.');
+        }
+      } else {
+        alert('Error de conexión con el servidor (HTTP ' + response.status + ')');
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert('Error al intentar guardar. Consulta la consola (F12) para más detalles.');
     }
   },
 
