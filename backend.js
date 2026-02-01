@@ -2,26 +2,29 @@ const app = {
   data: { properties: [], posts: [] },
 
   init: async function() {
-    // En lugar de localStorage, hacemos un fetch a la API
     try {
-      const response = await fetch('api.php?action=get_all');
+      // Añadimos &t=${Date.now()} para forzar que NO use caché
+      const response = await fetch('api.php?action=get_all&t=' + Date.now());
+
+      // Verificamos que la respuesta sea JSON válido
+      if (!response.ok) throw new Error("HTTP error " + response.status);
+
       this.data = await response.json();
+
+      // DEBUG: Si quieres ver qué datos llegan, quita el comentario de la línea de abajo
+      // console.log("Datos cargados:", this.data);
+
+      this.renderHome();
+      this.renderAdminTable();
+      this.renderPageContent();
+
+      if(document.getElementById('blog-grid')) {
+        this.renderBlogGrid();
+      }
     } catch (error) {
       console.error("Error cargando datos:", error);
+      alert("Hubo un error al cargar los datos desde el servidor. Revisa la consola (F12).");
     }
-
-    this.renderHome();
-    this.renderAdminTable();
-    this.renderPageContent();
-
-    if(document.getElementById('blog-grid')) {
-      this.renderBlogGrid();
-    }
-  },
-
-  save: async function() {
-    // La función save ya no hace nada local, se guarda vía API en handlePropertySubmit
-    await this.init(); // Recargamos datos para actualizar la vista
   },
 
   // --- RENDERIZADO (IGUAL QUE ANTES) ---
