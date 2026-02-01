@@ -33,7 +33,7 @@
 <!-- SCRIPT ESPECIAL PARA SUBPÁGINAS -->
 <!-- Indicamos a backend.js qué página estamos cargando -->
 <script>
-window.currentSlug = 'sobre-nosotros';
+window.currentSlug = 'articulo';
 </script>
 
 <script src="backend.js"></script>
