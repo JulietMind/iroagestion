@@ -79,5 +79,33 @@ if ($action == 'delete_property') {
     exit;
 }
 
+// ... (código anterior de get_all, save_property, delete_property) ...
+
+// --- NUEVO: Obtener SOLO un piso ---
+if ($action == 'get_property') {
+    $id = $_GET['id'];
+    $result = $conn->query("SELECT * FROM properties WHERE id=$id");
+    if ($result) {
+        $item = $result->fetch_assoc();
+        echo json_encode($item);
+    } else {
+        echo json_encode(null);
+    }
+    exit;
+}
+
+// --- NUEVO: Obtener SOLO un artículo ---
+if ($action == 'get_post') {
+    $id = $_GET['id'];
+    $result = $conn->query("SELECT * FROM posts WHERE id=$id");
+    if ($result) {
+        $item = $result->fetch_assoc();
+        echo json_encode($item);
+    } else {
+        echo json_encode(null);
+    }
+    exit;
+}
+
 $conn->close();
 ?>
