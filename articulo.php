@@ -25,16 +25,13 @@
 
 <?php include 'footer.php'; ?>
 
-<!-- SCRIPT ARREGLADO: ESPERA A LOS DATOS -->
+<!-- SCRIPT MODIFICADO: CARGA INDEPENDIENTE Y RÁPIDA -->
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Cargar datos si faltan
-    if (app.data.posts.length === 0) {
-        await app.init();
-    }
-    // 2. Pintar artículo
-    app.loadBlogDetail();
+    // Llamamos directamente a la función que pide SOLO este artículo
+    await app.fetchBlogDetail();
 });
 </script>
+
 </body>
 </html>
