@@ -129,6 +129,5 @@ O contáctanos directamente: <a href="mailto:info@iroagestion.com" style="color:
 
 </main>
 
-<?php include 'footer.php'; ?>
 
 <?php include 'footer.php'; ?>
