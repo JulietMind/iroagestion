@@ -5,14 +5,11 @@
 <script src="backend.js"></script>
 
 <main>
-<!-- HERO SECTION PRO -->
+<!-- HERO SECTION MEJORADO -->
 <section class="hero-pro">
-<div class="hero-bg"></div>
-<div class="hero-pattern"></div>
-<div class="hero-glow"></div>
-
 <div class="container">
 <div class="hero-content">
+<!-- Texto Izquierda -->
 <div class="hero-text">
 <h1>Inversión Inmobiliaria <span style="color:var(--primary)">Inteligente</span></h1>
 <p>Gestiona tus activos con seguridad y rentabilidad en una plataforma diseñada para el inversor moderno.</p>
@@ -21,29 +18,32 @@
 <a href="sobre-nosotros.php" class="btn btn-outline">Saber Más</a>
 </div>
 
-<div style="display: flex; gap: 40px; margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);">
+<!-- Métricas Rápidas Debajo del Texto -->
+<div style="display: flex; gap: 50px; margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);">
 <div>
-<div style="font-size: 2rem; font-weight: 800; color: white;">€45M+</div>
-<div style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Activos Gestionados</div>
+<div style="font-size: 2.2rem; font-weight: 800; color: white;">€45M+</div>
+<div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">Activos Gestionados</div>
 </div>
 <div>
-<div style="font-size: 2rem; font-weight: 800; color: white;">12%</div>
-<div style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Rentabilidad Media</div>
+<div style="font-size: 2.2rem; font-weight: 800; color: white;">12%</div>
+<div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">Rentabilidad Media</div>
 </div>
 </div>
 </div>
 
+<!-- Visual Derecha (Imagen y Tarjeta) -->
+<div class="hero-visual">
+<!-- Contenedor que controla la imagen y las dimensiones -->
+<div class="hero-img-container">
+<img src="https://picsum.photos/seed/buildingFinal/800/800" alt="Arquitectura Moderna" class="hero-img">
+</div>
+
+<!-- Tarjeta Flotante (Ahora está RELATIVA al visual, no absoluta a la página) -->
 <div class="hero-card-visual">
-<div class="hero-card-deco"></div>
-<img src="https://picsum.photos/seed/building9/600/700" alt="Edificio Moderno" class="hero-img">
-
-<div class="stat-card">
-<div style="background: rgba(212, 175, 55, 0.2); padding: 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary);">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-</div>
+<div class="hero-icon-circle">✓</div>
 <div>
-<div style="font-size: 0.85rem; color: var(--text-muted);">ESTADO</div>
-<div style="font-size: 1.25rem; font-weight: 700; color: white;">Activo</div>
+<div style="font-size: 0.8rem; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Estado</div>
+<div style="font-weight: bold; color: white; font-size: 1.1rem;">Activo</div>
 </div>
 </div>
 </div>
