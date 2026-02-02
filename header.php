@@ -157,6 +157,26 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     .hero-text p { margin: 0 auto 40px auto; }
     .hero-card-visual { max-width: 500px; margin: 0 auto; }
 }
+
+/* --- NUEVAS SECCIONES FINALES --- */
+
+/* 1. Metodología de Inversión */
+.methodology-section { padding: 100px 0; background: linear-gradient(to bottom, #0b1120, #0f172a); }
+.process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
+.process-step { position: relative; padding: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
+.process-step::before { content: '0' + counter(step-counter); position: absolute; top: -20px; left: 0; font-size: 3rem; font-weight: 800; color: rgba(212, 175, 55, 0.2); font-family: 'Playfair Display', serif; }
+.step-title { font-size: 1.4rem; font-weight: 700; color: white; margin-bottom: 15px; margin-top: 10px; }
+.step-icon { margin-bottom: 20px; color: var(--primary); }
+.step-desc { color: var(--text-muted); line-height: 1.7; }
+
+/* 2. CTA Final */
+.contact-cta { padding: 100px 0; position: relative; overflow: hidden; text-align: center; }
+.cta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%); z-index: 0; }
+.cta-content { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+.cta-box { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(15px); padding: 50px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+.cta-input { width: 100%; padding: 15px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); background: rgba(15, 23, 42, 0.8); color: white; margin-bottom: 15px; outline: none; transition: 0.3s; }
+.cta-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+
 </style>
 </head>
 <body>
