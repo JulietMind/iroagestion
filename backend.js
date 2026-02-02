@@ -331,7 +331,7 @@ const app = {
   },
 
   editPost: function(id) {
-    const item = this.data.posts.find(x => x.id === id);
+    const item = this.data.posts.find(x => x.id == id);
     if (!item) return;
 
     // Cambiar a la pestaña Blog (si está implementado en JS)
