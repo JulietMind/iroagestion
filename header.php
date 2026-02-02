@@ -51,111 +51,143 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 
 @media(max-width: 768px) { .nav-links { display: none; } }
 
-/* --- NUEVO HERO PRO --- */
+/* --- HERO PRO (MEJORADO Y ELEGANTE) --- */
 .hero-pro {
     position: relative;
-    padding: 100px 0;
+    padding: 140px 0 100px;
     overflow: hidden;
-    min-height: 80vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
-}
-
-/* Fondo animado sutil */
-.hero-bg {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(270deg, #0f172a, #1e293b, #0f172a);
-    background-size: 600% 600%;
-    animation: gradientMove 15s ease infinite;
-    z-index: -2;
-}
-
-/* Patrón geométrico sutil de fondo */
-.hero-pattern {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px);
-    background-size: 30px 30px;
-    z-index: -1;
-    opacity: 0.5;
-}
-
-/* Efecto de luz dorada difuminada */
-.hero-glow {
-    position: absolute;
-    top: 20%; right: 10%;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(0,0,0,0) 70%);
-    filter: blur(60px);
-    z-index: -1;
+    /* Fondo sutil oscuro con degradado */
+    background: radial-gradient(circle at 70% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%), linear-gradient(to bottom, #0f172a, #0b1120);
 }
 
 .hero-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    gap: 60px;
+    gap: 80px; /* Más espacio para respirar */
+    position: relative;
+    z-index: 2;
 }
 
+/* --- TEXTO HERO --- */
 .hero-text h1 {
-    font-size: 4rem; line-height: 1.1;
-    margin-bottom: 25px;
-    background: linear-gradient(to right, #fff, #cbd5e1);
+    font-size: 4.2rem;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    font-weight: 800;
+    /* Gradiente de texto elegante */
+    background: linear-gradient(to right, #ffffff 0%, #94a3b8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .hero-text p {
-    font-size: 1.2rem;
-    color: var(--text-muted);
+    font-size: 1.25rem;
+    color: #cbd5e1;
     margin-bottom: 40px;
     max-width: 550px;
+    line-height: 1.7;
 }
 
-/* Tarjeta flotante visual */
-.hero-card-visual {
+/* --- VISUAL DE IMAGEN (Mejorado) --- */
+.hero-visual {
     position: relative;
-    animation: float 6s ease-in-out infinite;
+    /* Centrado y con ancho máximo controlado */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px; /* Para efectos 3D suaves */
+}
+
+.hero-img-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 4/5; /* Proporción elegante */
+    border-radius: 24px;
+    overflow: hidden;
+    /* Sombra muy sofisticada para dar profundidad */
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.hero-img-container:hover {
+    transform: translateY(-10px) rotateX(2deg);
 }
 
 .hero-img {
-    border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    border: 1px solid rgba(255,255,255,0.1);
-    position: relative;
-    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* Elemento decorativo detrás de la imagen */
-.hero-card-deco {
+/* --- TARJETA FLOTANTE (Solución al descuadre) --- */
+.hero-card-visual {
     position: absolute;
-    top: -20px; right: -20px;
-    width: 100%; height: 100%;
-    border: 2px solid var(--primary);
+    /* Posicionamiento relativo al contenedor de la imagen, no a la pantalla */
+    bottom: 30px; /* 30px desde abajo */
+    right: -30px; /* 30px fuera a la derecha, creando efecto de capa */
+
+    background: rgba(30, 41, 59, 0.85); /* Fondo muy translúcido oscuro */
+    backdrop-filter: blur(16px); /* Desenfoque cristal */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    padding: 25px 30px;
     border-radius: 20px;
-    z-index: 1;
-    opacity: 0.3;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+
+    /* Animación suave */
+    animation: floatCard 6s ease-in-out infinite;
+    z-index: 10;
+    max-width: 320px; /* Ancho máximo para móviles */
+    width: fit-content;
 }
 
-/* Animaciones */
-@keyframes gradientMove {
-    0% { background-position: 0% 50% }
-    50% { background-position: 100% 50% }
-    100% { background-position: 0% 50% }
+/* Icono dentro de la tarjeta */
+.hero-icon-circle {
+    width: 50px; height: 50px;
+    background: linear-gradient(135deg, var(--primary), #FCD34D);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: black;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    font-size: 1.2rem;
+    flex-shrink: 0; /* Evita que el icono se aplaste */
 }
 
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
+@keyframes floatCard {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
 }
 
+/* --- RESPONSIVE --- */
 @media(max-width: 900px) {
-    .hero-content { grid-template-columns: 1fr; text-align: center; }
-    .hero-text h1 { font-size: 2.5rem; }
+    .hero-content { grid-template-columns: 1fr; text-align: center; gap: 60px; }
+    .hero-text h1 { font-size: 2.8rem; }
     .hero-text p { margin: 0 auto 40px auto; }
-    .hero-card-visual { max-width: 500px; margin: 0 auto; }
+    .hero-actions { justify-content: center; }
+
+    /* Ajuste de la tarjeta en móvil */
+    .hero-card-visual {
+        position: relative; /* Deja de ser absoluta en móvil */
+        right: auto;
+        bottom: auto;
+        margin-top: 30px;
+        width: 100%; /* Ocupa todo el ancho disponible */
+        max-width: 400px;
+        justify-content: center;
+        /* Centrada dentro del flujo */
+    }
 }
 
 /* --- NUEVAS SECCIONES FINALES --- */
