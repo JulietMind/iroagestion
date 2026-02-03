@@ -27,7 +27,7 @@ const app = {
     }
   },
 
-  // --- 2. HOME (3 Destacados) ---
+  // // --- 2. HOME (3 Destacados) ---
   renderFeatured: function() {
     const container = document.getElementById('featured-grid');
     if (!container) return;
@@ -246,7 +246,7 @@ const app = {
   },
 
   editProp: function(id) {
-    const item = this.data.properties.find(x => x.id === id);
+    const item = this.data.properties.find(x => x.id == id);
     if (!item) return;
 
     // Usamos '==' para compatibilidad de tipos
