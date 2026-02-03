@@ -5,19 +5,49 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Iroa Gestión</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
 <style>
+/* --- 1. VARIABLES Y RESET --- */
 :root { --bg-body: #0f172a; --primary: #d4af37; --bg-card: #1e293b; --text-main: #f1f5f9; --text-muted: #94a3b8; }
 body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); margin: 0; padding-top: 80px; }
 a { text-decoration: none; color: inherit; transition: 0.3s; }
 
+/* --- 2. HEADER & NAV DESKTOP --- */
 header { position: fixed; top: 0; width: 100%; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+
+/* Logo */
 .logo { font-size: 1.5rem; font-weight: 800; color: white; display: flex; align-items: center; gap: 10px; }
 .logo img { height: 50px; width: auto; }
+
+/* Enlaces Desktop */
 .nav-links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
 .nav-links a { color: var(--text-muted); font-weight: 500; cursor: pointer; }
 .nav-links a:hover { color: var(--primary); }
+
+/* Botones del Header */
+.nav-actions { display: flex; gap: 15px; align-items: center; }
+.btn { display: inline-block; padding: 10px 20px; border-radius: 50px; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; background: var(--primary); color: #000; text-align: center; }
+.btn:hover { box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+.btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+.btn-outline:hover { background: var(--primary); color: black; }
+
+/* --- 3. BOTÓN MENÚ MÓVIL (Oculto por defecto) --- */
+.mobile-menu-btn {
+    display: none; /* Oculto en escritorio */
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 5px 12px;
+    border-radius: 4px;
+    transition: 0.3s;
+    z-index: 999; /* Para que siempre esté por encima si hay conflictos */
+}
+
+/* --- 4. ESTILOS PRO (HERO, TARJETAS, ETC) --- */
 
 /* Botones Globales */
 .btn { display: inline-block; padding: 10px 20px; border-radius: 50px; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; background: var(--primary); color: #000; text-align: center; }
@@ -49,40 +79,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #FCD34D); width: 0%; }
 .card-btn { margin-top: 20px; width: 100%; background: linear-gradient(135deg, var(--primary), #b5952f); color: #000; font-weight: 700; border: none; padding: 12px; border-radius: 8px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
 
-/* @media(max-width: 768px) {
-    .nav-links {
-        display: none; /* Oculto por defecto */
-/*        position: absolute;
-        top: 80px; /* Justo debajo del header */
-/*        left: 0;
-        width: 100%;
-        background: var(--bg-body); /* Fondo oscuro */
-/*        flex-direction: column; /* En vertical */
-/*        padding: 20px;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        z-index: 999;
-        text-align: center;
-    }
-
-    /* Clase para mostrar el menú cuando esté activo */
-/*    .nav-links.active { display: flex; }
-
-    .nav-actions .btn { display: none; } /* Ocultar botones del menú en móvil */
-/*    .mobile-menu-btn { display: block; background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; }
-}
-
-/* --- BOTON MENU (Escritorio) --- */
-.mobile-menu-btn {
-    display: none; /* Importante: Oculto por defecto en escritorio */
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 1.8rem;
-    cursor: pointer;
-}
-
-/* --- HERO PRO --- */
+/* --- Hero pro --- */
 .hero-pro {
     position: relative;
     padding: 140px 0 100px;
@@ -90,7 +87,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     min-height: 90vh;
     display: flex;
     align-items: center;
-    /* Fondo sutil oscuro con degradado */
+    /* Fondo oscuro con degradado */
     background: radial-gradient(circle at 70% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%), linear-gradient(to bottom, #0f172a, #0b1120);
 }
 
@@ -103,7 +100,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     z-index: 2;
 }
 
-/* --- TEXTO HERO --- */
+/* --- Texto hero --- */
 .hero-text h1 {
     font-size: 4.2rem;
     line-height: 1.1;
@@ -123,7 +120,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     line-height: 1.7;
 }
 
-/* --- VISUAL DE IMAGEN --- */
+/* --- Visual de imagen --- */
 .hero-visual {
     position: relative;
     /* Centrado y con ancho máximo controlado */
@@ -157,7 +154,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     object-fit: cover;
 }
 
-/* --- TARJETA FLOTANTE --- */
+/* --- Tarjeta flotante --- */
 .hero-card-visual {
     position: absolute;
     /* Posicionamiento relativo al contenedor de la imagen, no a la pantalla */
@@ -201,41 +198,6 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     50% { transform: translateY(-12px); }
 }
 
-.nav-actions { display: none; }
-
-/* --- RESPONSIVE --- */
-@media(max-width: 768px) {
-    .nav-links {
-        display: none; /* Oculto por defecto */
-        position: absolute;
-        top: 80px; /* Justo debajo del header */
-        left: 0;
-        width: 100%;
-        background: var(--bg-body); /* Fondo oscuro */
-        flex-direction: column; /* En vertical */
-        padding: 20px;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        z-index: 999;
-        text-align: center;
-    }
-    .hero-content { grid-template-columns: 1fr; text-align: center; gap: 60px; }
-    .hero-text h1 { font-size: 2.8rem; }
-    .hero-text p { margin: 0 auto 40px auto; }
-    .hero-actions { justify-content: center; }
-
-    /* Ajuste de la tarjeta en móvil */
-    .hero-card-visual {
-        position: relative; /* Deja de ser absoluta en móvil */
-        right: auto;
-        bottom: auto;
-        margin-top: 30px;
-        width: 100%; /* Ocupa todo el ancho disponible */
-        max-width: 400px;
-        justify-content: center;
-        /* Centrada dentro del flujo */
-    }
-}
-
 /* --- NUEVAS SECCIONES FINALES --- */
 
 /* 1. Metodología de Inversión */
@@ -255,7 +217,67 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 .cta-input { width: 100%; padding: 15px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); background: rgba(15, 23, 42, 0.8); color: white; margin-bottom: 15px; outline: none; transition: 0.3s; }
 .cta-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
 
+
+/* --- 5. RESPONSIVE --- */
+@media(max-width: 900px) {
+    .nav-links {
+        display: none; /* Oculto por defecto */
+        position: absolute;
+        top: 80px; /* Justo debajo del header */
+        left: 0;
+        width: 100%;
+        background: var(--bg-body); /* Fondo oscuro */
+        flex-direction: column; /* En vertical */
+        padding: 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        z-index: 999;
+        text-align: center;
+    }
+    .mobile-menu-btn { display: block; }
+
+    .nav-actions .btn { display: none; }
+
+    /* Posicionamos el menú desplegado */
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: #0f172a; /* Fondo oscuro */
+        flex-direction: column;
+        padding: 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        z-index: 100; /* Encima al contenido */
+        text-align: center;
+    }
+
+    /* Clase activa para JS */
+    .nav-links.active {
+        display: flex !important;
+        flex-direction: column;
+    }
+}
+
+.hero-content { grid-template-columns: 1fr; text-align: center; gap: 60px; }
+.hero-text h1 { font-size: 2.8rem; }
+.hero-text p { margin: 0 auto 40px auto; }
+.hero-actions { justify-content: center; }
+
+/* Ajuste de la tarjeta en móvil */
+.hero-card-visual {
+    position: relative; /* Deja de ser absoluta en móvil */
+    right: auto;
+    bottom: auto;
+    margin-top: 30px;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 400px;
+    justify-content: center;
+    /* Centrada dentro del flujo */
+}
+}
 </style>
+
 </head>
 
 <body>
