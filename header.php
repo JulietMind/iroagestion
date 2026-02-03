@@ -248,9 +248,6 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 
 <!-- Menu móvil -->
 <div class="nav-actions">
-<a href="#" style="color:white; margin-right:15px;">Iniciar Sesión</a>
-<a href="gestion.php" class="btn">⚙️ Acceso Gestión</a>
-
 <!-- Botón menú móvil -->
 <button class="mobile-menu-btn">☰</button>
 </div>
