@@ -65,7 +65,7 @@
 </div>
 </section>
 
-<!-- SECCIÓN NUEVA: METODOLOGÍA (SEO) -->
+<!-- SECCIÓN METODOLOGÍA (SEO) -->
 <section class="methodology-section">
 <div class="container">
 <div style="text-align: center; margin-bottom: 60px;">
@@ -77,27 +77,21 @@
 <div class="process-grid" style="counter-reset: step-counter;">
 <!-- Paso 1 -->
 <div class="process-step">
-<div class="step-icon">
-<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-6-6m2-5l7-7 3-3a5 5 0 0 1-7-7 3-3a5 5 0 0 1 7 7 3-3a5 5 0 0 1 7 7 3-3a5 5 0 0 1 7 7 3-3a5 5 0 0 1 7 7 3-3a5 5 0 0 1 7 7 3-3a5 5 0 0 1 7 7 3-3a5 5 0 0 1 7 7 3-3a5 5 0 0 1 7 7z"/></svg>
-</div>
+<div class="step-icon">1</div>
 <h3 class="step-title">Selección Rigurosa</h3>
 <p class="step-desc">Analizamos más de 300 activos inmobiliarios anualmente para encontrar oportunidades con el mejor potencial de plusvalía y seguridad legal.</p>
 </div>
 
 <!-- Paso 2 -->
 <div class="process-step">
-<div class="step-icon">
-<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10v-5a4 4 0 0 0-8-0v-5a4 4 0 0 1 8-0v5c0 5.178 4 10 10 10z"/></svg>
-</div>
+<div class="step-icon">2</div>
 <h3 class="step-title">Tokenización y Gestión</h3>
 <p class="step-desc">Digitalizamos la propiedad mediante contratos inteligentes, permitiéndote diversificar tu capital desde 500€ sin fricción.</p>
 </div>
 
 <!-- Paso 3 -->
 <div class="process-step">
-<div class="step-icon">
-<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-</div>
+<div class="step-icon">3</div>
 <h3 class="step-title">Rentabilidad Segura</h3>
 <p class="step-desc">Obtén rendimientos pasivos trimestrales y la plusvalía del activo al finalizar el periodo de inversión de forma garantizada.</p>
 </div>
@@ -105,7 +99,7 @@
 </div>
 </section>
 
-<!-- SECCIÓN NUEVA: CTA CONTACTO -->
+<!-- SECCIÓN CTA CONTACTO -->
 <section class="contact-cta">
 <div class="cta-glow"></div>
 <div class="cta-content">
