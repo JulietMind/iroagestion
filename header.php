@@ -51,7 +51,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 
 @media(max-width: 768px) { .nav-links { display: none; } }
 
-/* --- HERO PRO (MEJORADO Y ELEGANTE) --- */
+/* --- HERO PRO --- */
 .hero-pro {
     position: relative;
     padding: 140px 0 100px;
@@ -78,7 +78,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     line-height: 1.1;
     margin-bottom: 30px;
     font-weight: 800;
-    /* Gradiente de texto elegante */
+    /* Gradiente de texto */
     background: linear-gradient(to right, #ffffff 0%, #94a3b8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -92,7 +92,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     line-height: 1.7;
 }
 
-/* --- VISUAL DE IMAGEN (Mejorado) --- */
+/* --- VISUAL DE IMAGEN --- */
 .hero-visual {
     position: relative;
     /* Centrado y con ancho máximo controlado */
@@ -106,10 +106,10 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     position: relative;
     width: 100%;
     max-width: 600px;
-    aspect-ratio: 4/5; /* Proporción elegante */
+    aspect-ratio: 4/5; /* Proporción */
     border-radius: 24px;
     overflow: hidden;
-    /* Sombra muy sofisticada para dar profundidad */
+    /* Sombra para dar profundidad */
     box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.08);
     transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -126,14 +126,14 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     object-fit: cover;
 }
 
-/* --- TARJETA FLOTANTE (Solución al descuadre) --- */
+/* --- TARJETA FLOTANTE --- */
 .hero-card-visual {
     position: absolute;
     /* Posicionamiento relativo al contenedor de la imagen, no a la pantalla */
     bottom: 30px; /* 30px desde abajo */
     right: -30px; /* 30px fuera a la derecha, creando efecto de capa */
 
-    background: rgba(30, 41, 59, 0.85); /* Fondo muy translúcido oscuro */
+    background: rgba(30, 41, 59, 0.85); /* Fondo translúcido oscuro */
     backdrop-filter: blur(16px); /* Desenfoque cristal */
     border: 1px solid rgba(255, 255, 255, 0.15);
 
@@ -196,7 +196,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 .methodology-section { padding: 100px 0; background: linear-gradient(to bottom, #0b1120, #0f172a); }
 .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
 .process-step { position: relative; padding: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
-.process-step::before { content: '0' + counter(step-counter); position: absolute; top: -20px; left: 0; font-size: 3rem; font-weight: 800; color: rgba(212, 175, 55, 0.2); font-family: 'Playfair Display', serif; }
+.process-step::before { content: '0' + counter(step-counter); position: absolute; top: -25px; left: 0; font-size: 3.5rem; font-weight: 900; color: var(--primary); font-family: 'Playfair Display', serif; letter-spacing: -2px; }
 .step-title { font-size: 1.4rem; font-weight: 700; color: white; margin-bottom: 15px; margin-top: 10px; }
 .step-icon { margin-bottom: 20px; color: var(--primary); }
 .step-desc { color: var(--text-muted); line-height: 1.7; }
