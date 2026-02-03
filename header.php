@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Iroa Gestión</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
-<style>
+<!-- <style>
 :root { --bg-body: #0f172a; --primary: #d4af37; --bg-card: #1e293b; --text-main: #f1f5f9; --text-muted: #94a3b8; }
 body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); margin: 0; padding-top: 80px; }
 a { text-decoration: none; color: inherit; transition: 0.3s; }
@@ -228,8 +228,96 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 .cta-input { width: 100%; padding: 15px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); background: rgba(15, 23, 42, 0.8); color: white; margin-bottom: 15px; outline: none; transition: 0.3s; }
 .cta-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
 
-</style>
+</style> -->
 </head>
+<style>
+/* --- ESTILOS GENERALES --- */
+:root { --bg-body: #0f172a; --primary: #d4af37; --accent: #38bdf8; --text-main: #f1f5f9; --text-muted: #94a3b8; --bg-card: #1e293b; }
+body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); margin: 0; padding-top: 80px; }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+/* Header Styles */
+header { position: fixed; top: 0; width: 100%; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+.logo { font-size: 1.5rem; font-weight: 800; color: white; display: flex; align-items: center; gap: 10px; }
+.logo img { height: 50px; width: auto; }
+.nav-links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { color: var(--text-muted); font-weight: 500; cursor: pointer; }
+.nav-links a:hover { color: var(--primary); }
+.nav-actions { display: flex; gap: 15px; align-items: center; }
+.btn { display: inline-block; padding: 10px 20px; border-radius: 50px; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; background: var(--primary); color: #000; text-align: center; }
+.btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+.btn-outline:hover { background: var(--primary); color: black; }
+.mobile-menu-btn { display: none; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; font-size: 1.5rem; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+
+/* Estilos de Tarjetas (Resumen) */
+.project-card { background: var(--bg-card); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; display: flex; flex-direction: column; height: 100%; }
+.project-card:hover { transform: scale(1.02); }
+.card-image-wrapper { position: relative; height: 220px; overflow: hidden; }
+.card-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+.card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+.project-title { font-size: 1.25rem; font-weight: 700; color: white; margin: 0 0 10px; }
+.metrics-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; background: rgba(0,0,0,0.2); border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.03); }
+.metric { text-align: center; border-right: 1px solid rgba(255,255,255,0.05); }
+.metric-label { display: block; font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
+.metric-value { display: block; font-size: 1rem; font-weight: 700; color: white; }
+.progress-section { margin-top: auto; }
+.progress-header { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+.progress-track { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #FCD34D); width: 0%; }
+.card-btn { margin-top: 20px; width: 100%; background: linear-gradient(135deg, var(--primary), #b5952f); color: #000; font-weight: 700; border: none; padding: 12px; border-radius: 8px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
+.card-badge { position: absolute; top: 15px; left: 15px; background: rgba(0, 0, 0, 0.6); color: var(--primary); padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; backdrop-filter: blur(8px); }
+
+/* --- HERO PRO --- */
+.hero-pro { position: relative; padding: 140px 0 80px; overflow: hidden; min-height: 80vh; display: flex; align-items: center; background: radial-gradient(circle at 70% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%), linear-gradient(to bottom, #0f172a, #0b1120); }
+.hero-content { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 60px; position: relative; z-index: 2; }
+.hero-text h1 { font-size: 3.8rem; line-height: 1.1; margin-bottom: 30px; background: linear-gradient(135deg, #fff, #cbd5e1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-text p { font-size: 1.25rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 40px; max-width: 550px; }
+.hero-visual { position: relative; height: 500px; display: flex; align-items: center; justify-content: center; }
+.hero-img-main { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255,255,255,0.08); }
+.hero-card-deco { position: absolute; top: -20px; right: -20px; width: 100%; height: 100%; border: 2px solid rgba(212, 175, 55, 0.2); border-radius: 24px; z-index: -1; }
+.stat-card { position: absolute; bottom: 50px; left: -40px; background: rgba(30, 41, 59, 0.9); backdrop-filter: blur(12px); padding: 20px 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 20px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4); width: 200px; z-index: 3; }
+
+/* --- HERO ANIMATION --- */
+@keyframes floatCard { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.hero-card-visual { animation: floatCard 4s ease-in-out infinite; }
+
+/* --- RESPONSIVE: MENÚ MÓVIL (SOLUCIÓN) --- */
+@media(max-width: 900px) {
+    .hero-content { grid-template-columns: 1fr; text-align: center; gap: 60px; }
+    .hero-text h1 { font-size: 2.5rem; }
+    .hero-actions { justify-content: center; }
+    .hero-visual { height: 400px; margin-top: 40px; }
+
+    .nav-links {
+        display: none; /* Ocultar por defecto */
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: rgba(15, 23, 42, 1); /* Fondo sólido oscuro */
+        flex-direction: column;
+        padding: 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        z-index: 1001; /* Encima al contenido */
+        text-align: center;
+    }
+
+    /* CLAVE: Forzar visibilidad */
+    .nav-links.active {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .nav-actions .btn { display: none; }
+    .mobile-menu-btn { display: block; }
+
+    /* Importante: Permitir que el header crezca si el menú se abre */
+    nav { overflow: visible; }
+}
+</style>
 <body>
 
 <header>
@@ -255,6 +343,27 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 </div>
 
 <script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const navList = document.getElementById('main-nav');
+
+    if (menuBtn) {
+        menuBtn.addEventListener('click', () => {
+            if (navList) {
+                navList.classList.toggle('active');
+                // DEBUG: Alerta para confirmar que funciona
+                console.log("Clase actual:", navList.className);
+                // alert("Menú pulsado. Clase " + navList.className);
+            } else {
+                alert("Error: No se encontró el menú. Verifica el HTML id='main-nav'");
+            }
+        });
+    } else {
+        console.error("Botón móvil no encontrado");
+    }
+});
+</script>
 // Lógica para abrir/cerrar el menú móvil
 const menuBtn = document.querySelector('.mobile-menu-btn');
 const navList = document.getElementById('main-nav');
