@@ -49,8 +49,26 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #FCD34D); width: 0%; }
 .card-btn { margin-top: 20px; width: 100%; background: linear-gradient(135deg, var(--primary), #b5952f); color: #000; font-weight: 700; border: none; padding: 12px; border-radius: 8px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
 
-@media(max-width: 768px) { .nav-links { display: none; } }
+@media(max-width: 768px) {
+    .nav-links {
+        display: none; /* Oculto por defecto */
+        position: absolute;
+        top: 80px; /* Justo debajo del header */
+        left: 0;
+        width: 100%;
+        background: var(--bg-body); /* Fondo oscuro */
+        flex-direction: column; /* En vertical */
+        padding: 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        z-index: 999;
+    }
 
+    /* Clase para mostrar el menú cuando esté activo */
+    .nav-links.active { display: flex; }
+
+    .nav-actions .btn { display: none; } /* Ocultar botones del menú en móvil */
+    .mobile-menu-btn { display: block; background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; }
+}
 /* --- HERO PRO --- */
 .hero-pro {
     position: relative;
@@ -220,12 +238,26 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 <img src="https://z-cdn-media.chatglm.cn/files/25712ad8-87b4-42f4-a0fe-89352f5b583f.jpg?auth_key=1868784953-eeade0e70eb94f768c345d3ef2e48c50-0-ec6c7371f7d633278686edf25fa96038" alt="Logo">
 </a>
 
-<ul class="nav-links">
+<ul id="main-nav" class="nav-links">
 <li><a href="index.php">Inicio</a></li>
 <li><a href="oportunidades.php">Oportunidades</a></li>
-<li><a href="sobre-nosotros.php">Sobre nosotros</a></li>
+<!-- <li><a href="sobre-nosotros.php">Sobre nosotros</a></li> -->
 <li><a href="blog.php">Blog</a></li>
 </ul>
 </nav>
 </div>
+
+<script>
+// Lógica para abrir/cerrar el menú móvil
+const menuBtn = document.querySelector('.mobile-menu-btn');
+const navList = document.getElementById('main-nav');
+
+if (menuBtn && navList) {
+    menuBtn.addEventListener('click', () => {
+        // Añadir o quitar la clase 'active'
+        navList.classList.toggle('active');
+    });
+}
+</script>
+
 </header>
