@@ -49,16 +49,16 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #FCD34D); width: 0%; }
 .card-btn { margin-top: 20px; width: 100%; background: linear-gradient(135deg, var(--primary), #b5952f); color: #000; font-weight: 700; border: none; padding: 12px; border-radius: 8px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
 
-@media(max-width: 768px) {
+/* @media(max-width: 768px) {
     .nav-links {
         display: none; /* Oculto por defecto */
-        position: absolute;
+/*        position: absolute;
         top: 80px; /* Justo debajo del header */
-        left: 0;
+/*        left: 0;
         width: 100%;
         background: var(--bg-body); /* Fondo oscuro */
-        flex-direction: column; /* En vertical */
-        padding: 20px;
+/*        flex-direction: column; /* En vertical */
+/*        padding: 20px;
         border-bottom: 1px solid rgba(255,255,255,0.1);
         z-index: 999;
         text-align: center;
@@ -202,8 +202,20 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 }
 
 /* --- RESPONSIVE --- */
-@media(max-width: 900px) {
-    .nav-links {display: none; /* Oculto por defecto */
+@media(max-width: 768px) {
+    .nav-links {
+        display: none; /* Oculto por defecto */
+        position: absolute;
+        top: 80px; /* Justo debajo del header */
+        left: 0;
+        width: 100%;
+        background: var(--bg-body); /* Fondo oscuro */
+        flex-direction: column; /* En vertical */
+        padding: 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        z-index: 999;
+        text-align: center;
+    }
     .hero-content { grid-template-columns: 1fr; text-align: center; gap: 60px; }
     .hero-text h1 { font-size: 2.8rem; }
     .hero-text p { margin: 0 auto 40px auto; }
