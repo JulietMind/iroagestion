@@ -1,9 +1,6 @@
 <?php include 'header.php'; ?>
 <script src="backend.js"></script>
 
-<?php include 'header.php'; ?>
-<script src="backend.js"></script>
-
 <main>
 <!-- HERO SECTION MEJORADO -->
 <section class="hero-pro">
