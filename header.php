@@ -65,10 +65,10 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     }
 
     /* Clase para mostrar el menú cuando esté activo */
-    .nav-links.active { display: flex; }
+/*    .nav-links.active { display: flex; }
 
     .nav-actions .btn { display: none; } /* Ocultar botones del menú en móvil */
-    .mobile-menu-btn { display: block; background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; }
+/*    .mobile-menu-btn { display: block; background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; }
 }
 
 /* --- BOTON MENU (Escritorio) --- */
@@ -200,6 +200,8 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-12px); }
 }
+
+.nav-actions { display: none; }
 
 /* --- RESPONSIVE --- */
 @media(max-width: 768px) {
