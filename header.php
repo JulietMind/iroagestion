@@ -61,6 +61,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
         padding: 20px;
         border-bottom: 1px solid rgba(255,255,255,0.1);
         z-index: 999;
+        text-align: center;
     }
 
     /* Clase para mostrar el menú cuando esté activo */
@@ -241,9 +242,18 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 <ul id="main-nav" class="nav-links">
 <li><a href="index.php">Inicio</a></li>
 <li><a href="oportunidades.php">Oportunidades</a></li>
-<!-- <li><a href="sobre-nosotros.php">Sobre nosotros</a></li> -->
+<li><a href="sobre-nosotros.php">Sobre nosotros</a></li>
 <li><a href="blog.php">Blog</a></li>
 </ul>
+
+<!-- Menu móvil -->
+<div class="nav-actions">
+<a href="#" style="color:white; margin-right:15px;">Iniciar Sesión</a>
+<a href="gestion.php" class="btn">⚙️ Acceso Gestión</a>
+
+<!-- Botón menú móvil -->
+<button class="mobile-menu-btn">☰</button>
+</div>
 </nav>
 </div>
 
