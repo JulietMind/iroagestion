@@ -198,7 +198,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 .process-step { position: relative; padding: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
 .process-step::before { content: '0' + counter(step-counter); position: absolute; top: -25px; left: 0; font-size: 3.5rem; font-weight: 900; color: var(--primary); font-family: 'Playfair Display', serif; letter-spacing: -2px; }
 .step-title { font-size: 1.4rem; font-weight: 700; color: white; margin-bottom: 15px; margin-top: 10px; }
-.step-icon { margin-bottom: 20px; color: var(--primary); }
+.step-icon { margin-bottom: 20px; font-size: 2rem; color: var(--primary); }
 .step-desc { color: var(--text-muted); line-height: 1.7; }
 
 /* 2. CTA Final */
