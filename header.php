@@ -255,4 +255,22 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 </nav>
 </div>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const navList = document.getElementById('main-nav');
+
+    // Si el botón no existe, el script fallará antes de intentar añadir evento
+    if (menuBtn && navList) {
+        menuBtn.addEventListener('click', () => {
+            navList.classList.toggle('active');
+            console.log("Menú pulsado. Clase actual:", navList.className);
+        });
+    } else {
+        console.error("Error: No se encontró el botón o el menú.");
+    }
+});
+</script>
+
 </header>
