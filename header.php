@@ -343,7 +343,6 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 </div>
 
 <script>
-<script>
 document.addEventListener('DOMContentLoaded', () => {
     const menuBtn = document.querySelector('.mobile-menu-btn');
     const navList = document.getElementById('main-nav');
@@ -363,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Botón móvil no encontrado");
     }
 });
-</script>
+
 // Lógica para abrir/cerrar el menú móvil
 const menuBtn = document.querySelector('.mobile-menu-btn');
 const navList = document.getElementById('main-nav');
