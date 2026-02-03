@@ -70,6 +70,18 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     .nav-actions .btn { display: none; } /* Ocultar botones del menú en móvil */
     .mobile-menu-btn { display: block; background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; }
 }
+
+/* --- BOTON MENU (Escritorio) --- */
+.mobile-menu-btn {
+    display: none; /* Importante: Oculto por defecto en escritorio */
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
 /* --- HERO PRO --- */
 .hero-pro {
     position: relative;
@@ -191,6 +203,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 
 /* --- RESPONSIVE --- */
 @media(max-width: 900px) {
+    .nav-links {display: none; /* Oculto por defecto */
     .hero-content { grid-template-columns: 1fr; text-align: center; gap: 60px; }
     .hero-text h1 { font-size: 2.8rem; }
     .hero-text p { margin: 0 auto 40px auto; }
