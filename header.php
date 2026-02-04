@@ -263,7 +263,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     }
 }
 
-.hero-content { grid-template-columns: 1fr; text-align: center; gap: 60px; }
+.hero-content { text-align: center; gap: 60px; }
 .hero-text h1 { font-size: 2.8rem; }
 .hero-text p { margin: 0 auto 40px auto; }
 .hero-actions { justify-content: center; }
