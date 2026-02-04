@@ -127,6 +127,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 .hero-data {
     display: block;
     align-content: center;
+    justify-content: space-evenly;
 }
 
 /* --- Visual de imagen --- */
