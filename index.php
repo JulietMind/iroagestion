@@ -29,14 +29,13 @@
 </div>
 
 <!-- Visual Derecha (Imagen y Tarjeta) -->
-<div class="hero-visual">
-<!-- Contenedor que controla la imagen y las dimensiones -->
+<!-- <div class="hero-visual">
 <div class="hero-img-container">
 <img src="https://picsum.photos/seed/buildingFinal/800/800" alt="Arquitectura Moderna" class="hero-img">
-</div>
+</div> -->
 
 <!-- Tarjeta Flotante (Ahora está RELATIVA al visual, no absoluta a la página) -->
-<div class="hero-card-visual">
+<!-- <div class="hero-card-visual">
 <div class="hero-icon-circle">✓</div>
 <div>
 <div style="font-size: 0.8rem; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Estado</div>
