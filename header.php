@@ -124,6 +124,10 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     line-height: 1.7;
 }
 
+.hero-data {
+    align-content: center;
+}
+
 /* --- Visual de imagen --- */
 .hero-visual {
     position: relative;

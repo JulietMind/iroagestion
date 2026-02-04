@@ -10,13 +10,13 @@
 <div class="hero-text">
 <h1>Inversión Inmobiliaria <span style="color:var(--primary)">Inteligente</span></h1>
 <p>Gestiona tus activos con seguridad y rentabilidad en una plataforma diseñada para el inversor moderno.</p>
-<div style="display: flex; gap: 15px;">
+<div class="hero-data" style="display: flex; gap: 15px;">
 <a href="oportunidades.php" class="btn">Ver Oportunidades</a>
 <a href="sobre-nosotros.php" class="btn btn-outline">Saber Más</a>
 </div>
 
 <!-- Métricas Rápidas Debajo del Texto -->
-<div style="display: flex; gap: 50px; margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);">
+<div class="hero-data" style="display: flex; gap: 50px; margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);">
 <div>
 <div style="font-size: 2.2rem; font-weight: 800; color: white;">€45M+</div>
 <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">Activos Gestionados</div>
