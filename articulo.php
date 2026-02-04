@@ -1,5 +1,4 @@
 <?php include 'header.php'; ?>
-<script src="backend.js"></script>
 
 <style>
 .article-header { text-align: center; max-width: 800px; margin: 40px auto; }
