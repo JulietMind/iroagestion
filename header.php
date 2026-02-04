@@ -160,10 +160,10 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 
 /* --- Tarjeta flotante --- */
 .hero-card-visual {
-   /* position: absolute;
+    position: absolute;
     /* Posicionamiento relativo al contenedor de la imagen, no a la pantalla */
-   /* bottom: 30px; /* 30px desde abajo */
-   /* right: -30px; /* 30px fuera a la derecha, creando efecto de capa */
+    bottom: 30px; /* 30px desde abajo */
+    right: -30px; /* 30px fuera a la derecha, creando efecto de capa */
 
     background: rgba(30, 41, 59, 0.85); /* Fondo translúcido oscuro */
     backdrop-filter: blur(16px); /* Desenfoque cristal */
@@ -182,7 +182,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     animation: floatCard 6s ease-in-out infinite;
     z-index: 10;
     max-width: 320px; /* Ancho máximo para móviles */
-   /* width: fit-content;
+    width: fit-content;
 }
 
 /* Icono dentro de la tarjeta */
@@ -263,7 +263,7 @@ nav { display: flex; justify-content: space-between; align-items: center; height
     }
 }
 
-.hero-content { text-align: center; gap: 60px; }
+.hero-content { grid-template-columns: 1fr; text-align: center; gap: 60px; }
 .hero-text h1 { font-size: 2.8rem; }
 .hero-text p { margin: 0 auto 40px auto; }
 .hero-actions { justify-content: center; }
