@@ -10,7 +10,7 @@
 <div class="hero-text">
 <h1>Inversión Inmobiliaria <span style="color:var(--primary)">Inteligente</span></h1>
 <p>Gestiona tus activos con seguridad y rentabilidad en una plataforma diseñada para el inversor moderno.</p>
-<div class="hero-data" style="display: flex; gap: 15px;">
+<div class="hero-data" style="gap: 15px;">
 <a href="oportunidades.php" class="btn">Ver Oportunidades</a>
 <a href="sobre-nosotros.php" class="btn btn-outline">Saber Más</a>
 </div>
