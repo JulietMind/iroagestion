@@ -1,5 +1,4 @@
 <?php include 'header.php'; ?>
-<script src="backend.js"></script>
 
 <main>
 <!-- HERO SECTION MEJORADO -->
