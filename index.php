@@ -101,17 +101,7 @@
 <div class="cta-box">
 <h2 style="font-size: 2.5rem; font-family: 'Playfair Display', serif; color: white; margin-bottom: 20px;">¿Listo para comenzar a invertir?</h2>
 <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px;">Hable con nuestros asesores de patrimonio y diseñe tu estrategia personalizada.</p>
-
-<form action="mailto:info@iroagestion.com" method="post" enctype="text/plain">
-<!-- Formulario visual de contacto -->
-<input type="text" name="subject" class="cta-input" placeholder="Asunto (Opcional)" style="display:none;"> <!-- Oculto para prefillar el asunto -->
-<input type="email" required class="cta-input" placeholder="Tu correo electrónico" name="body">
-<button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem;">Solicitar Asesoramiento</button>
-</form>
-
-<p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 20px;">
-O contáctanos directamente: <a href="mailto:info@iroagestion.com" style="color: white; text-decoration: underline;">info@iroagestion.com</a>
-</p>
+<p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 20px;">O puede contactarnos a través de info@iroagestion.com</p>
 </div>
 </div>
 </section>
