@@ -5,5 +5,4 @@
 <div id="blog-grid" class="project-grid"></div>
 </div>
 </div>
-<script src="backend.js"></script>
 <?php include 'footer.php'; ?>

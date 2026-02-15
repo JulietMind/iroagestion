@@ -19,6 +19,5 @@
 <script>
     window.currentSlug = 'ayuda';
 </script>
-<script src="backend.js"></script>
 </body>
 </html>

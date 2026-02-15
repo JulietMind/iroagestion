@@ -1,5 +1,4 @@
 <?php include 'header.php'; ?>
-<script src="backend.js"></script>
 
 <style>
 /* Asegúrate de tener estos estilos si no estaban */

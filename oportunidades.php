@@ -1,5 +1,4 @@
 <?php include 'header.php'; ?>
-<script src="backend.js"></script>
 <div style="padding: 80px 0; background: #0b1120;">
 <div class="container">
 <h1 style="text-align: center; font-family: 'Playfair Display', serif; color: white; margin-bottom: 50px;">Oportunidades de Inversión</h1>
