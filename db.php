@@ -1,5 +1,5 @@
 <?php
-$host = 'bbdd.iroagestion.com'; // O el host que te indique el panel de control
+$host = 'bbdd.iroagestion.com';
 $db_user = 'ddb267655';
 $db_pass = 'Iroapass90*';
 $db_name = 'ddb267655';
