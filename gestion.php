@@ -120,30 +120,31 @@ td img { width: 60px; height: 40px; object-fit: cover; border-radius: 4px; }
 </div>
 
 <!-- PESTAÑA 2: EN CURSO -->
-<div id="tab-blog" class="tab-content">
+<div id="tab-pisos" class="tab-content active">
 <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 12px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.05);">
 <h3>Añadir / Editar En curso</h3>
-<form id="post-form" onsubmit="app.savePost(event)">
-<input type="hidden" id="post-id">
+<form id="prop-form" onsubmit="app.saveProperty(event)">
+<input type="hidden" id="prop-id">
 <div class="form-grid">
-<input type="text" id="post-title" placeholder="Título Artículo" required>
-<input type="text" id="post-date" placeholder="Fecha (Ej: 22 Dic 2023)" required>
+<input type="text" id="prop-title" placeholder="Título" required>
+<input type="text" id="prop-loc" placeholder="Ubicación" required>
+<input type="text" id="prop-profit" placeholder="Rentabilidad" required>
+<input type="text" id="prop-min" placeholder="Total capital aportado" required>
+<input type="text" id="prop-duration" placeholder="Duración" required>
+<input type="text" id="prop-badge" placeholder="Estado">
+<!-- <input type="number" id="prop-progress" placeholder="Progreso">-->
+<input type="text" id="prop-funded" placeholder="Beneficio">
 </div>
-<textarea id="post-body" rows="8" placeholder="Contenido del artículo..." style="margin-bottom: 15px;"></textarea>
-
-<div style="margin-bottom: 10px;">
-<label>Imagen destacada:</label>
-<input type="file" id="post-file" class="form-input" accept="image/*" onchange="app.previewPostImage(this)">
-<input type="hidden" id="post-image-data">
-<div id="post-preview" style="width: 100%; height: 150px; background: #333; margin-top: 10px; background-size: cover; background-position: center;"></div>
-</div>
-
-<button type="submit" class="btn-save">Guardar Artículo</button>
-<button type="button" class="btn-reset" onclick="app.resetPostForm()">Cancelar</button>
+<textarea id="prop-desc" rows="3" placeholder="Descripción..."></textarea>
+<input type="file" id="prop-file" class="form-input" accept="image/*" onchange="app.previewImage(this)">
+<input type="hidden" id="prop-image-data">
+<div id="prop-preview" style="width: 100%; height: 150px; background: #333; margin-top: 10px; background-size: cover; background-position: center;"></div>
+<button type="submit" class="btn-save">Guardar Piso</button>
+<button type="button" class="btn-reset" onclick="app.resetPropForm()">Cancelar</button>
 </form>
 </div>
-<h3>Listado de Artículos</h3>
-<table id="admin-posts-table"><thead><tr><th>Img</th><th>Título</th><th>Fecha</th><th>Acciones</th></tr></thead><tbody></tbody></table>
+<h3>Listado de Finalizadas</h3>
+<table id="admin-table"><thead><tr><th>Img</th><th>Título</th><th>Ubicación</th><th>Rentabilidad</th><th>Acciones</th></tr></thead><tbody></tbody></table>
 </div>
 
 </div>
