@@ -8,7 +8,7 @@
 <!-- Texto Izquierda -->
 <div class="hero-text">
 <h1>Inversión Inmobiliaria <span style="color:var(--primary)">Inteligente</span></h1>
-<p>Gestiona tus activos con seguridad y rentabilidad en una plataforma diseñada para el inversor moderno.</p>
+<p>Invierte en activos con viabilidad y rentabilidad en una plataforma diseñada para el inversor moderno</p>
 <div class="hero-data" style="gap: 15px;">
 <a href="oportunidades.php" class="btn">Ver Oportunidades</a>
 <a href="sobre-nosotros.php" class="btn btn-outline">Saber Más</a>
@@ -17,11 +17,11 @@
 <!-- Métricas Rápidas Debajo del Texto -->
 <div class="hero-data" style="display: flex; gap: 50px; margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);">
 <div>
-<div style="font-size: 2.2rem; font-weight: 800; color: white;">€45M+</div>
+<div style="font-size: 2.2rem; font-weight: 800; color: white;">€5M+</div>
 <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">Activos Gestionados</div>
 </div>
 <div>
-<div style="font-size: 2.2rem; font-weight: 800; color: white;">12%</div>
+<div style="font-size: 2.2rem; font-weight: 800; color: white;">36%</div>
 <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">Rentabilidad Media</div>
 </div>
 </div>
@@ -52,7 +52,7 @@
 <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px;">
 <div>
 <span style="color: var(--primary); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Catálogo Selecto</span>
-<h2 style="font-size: 2.5rem; font-family: 'Playfair Display', serif; color: white; margin-top: 10px;">Proyectos Destacados</h2>
+<h2 style="font-size: 2.5rem; font-family: 'Playfair Display', serif; color: white; margin-top: 10px;">Inversiones Finalizadas</h2>
 </div>
 <a href="oportunidades.php" style="font-weight: 600; color: white; display: flex; align-items: center; gap: 5px;">Ver todo el catálogo →</a>
 </div>
@@ -66,7 +66,7 @@
 <div style="text-align: center; margin-bottom: 60px;">
 <span style="color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;">Como Invertir</span>
 <h2 style="font-size: 2.5rem; font-family: 'Playfair Display', serif; color: white;">Metodología de Inversión</h2>
-<p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">En Iroa Gestión simplificamos el acceso a la renta patrimonial mediante un proceso riguroso y transparente.</p>
+<p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">En Iroa Gestión facilitamos la inversión mediante un modelo estructurado y claro</p>
 </div>
 
 <div class="process-grid" style="counter-reset: step-counter;">
@@ -74,21 +74,21 @@
 <div class="process-step">
 <div class="step-icon">1</div>
 <h3 class="step-title">Selección Rigurosa</h3>
-<p class="step-desc">Analizamos más de 300 activos inmobiliarios anualmente para encontrar oportunidades con el mejor potencial de plusvalía y seguridad legal.</p>
+<p class="step-desc">Analizamos más de 300 activos inmobiliarios anualmente para encontrar oportunidades con el mejor potencial de rentabilidad y seguridad legal.</p>
 </div>
 
 <!-- Paso 2 -->
 <div class="process-step">
 <div class="step-icon">2</div>
-<h3 class="step-title">Tokenización y Gestión</h3>
-<p class="step-desc">Digitalizamos la propiedad mediante contratos inteligentes, permitiéndote diversificar tu capital desde 500€ sin fricción.</p>
+<h3 class="step-title">Análisis y Gestión</h3>
+<p class="step-desc">Analizamos antes de invertir y gestionamos para ganar.</p>
 </div>
 
 <!-- Paso 3 -->
 <div class="process-step">
 <div class="step-icon">3</div>
-<h3 class="step-title">Rentabilidad Segura</h3>
-<p class="step-desc">Obtén rendimientos pasivos trimestrales y la plusvalía del activo al finalizar el periodo de inversión de forma garantizada.</p>
+<h3 class="step-title">Rentabilidad superior a la media</h3>
+<p class="step-desc">No buscamos lo estándar, buscamos lo que destaca con una estrategia enfocada en resultados superiores.</p>
 </div>
 </div>
 </div>
@@ -100,7 +100,7 @@
 <div class="cta-content">
 <div class="cta-box">
 <h2 style="font-size: 2.5rem; font-family: 'Playfair Display', serif; color: white; margin-bottom: 20px;">¿Listo para comenzar a invertir?</h2>
-<p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px;">Hable con nuestros asesores de patrimonio y diseñe tu estrategia personalizada.</p>
+<p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px;">Hable con nuestros asesores y diseñe su estrategia personalizada.</p>
 <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 20px;">O puede contactarnos a través de info@iroagestion.com</p>
 </div>
 </div>
