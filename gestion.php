@@ -120,7 +120,7 @@ td img { width: 60px; height: 40px; object-fit: cover; border-radius: 4px; }
 </div>
 
 <!-- PESTAÑA 2: EN CURSO -->
-<div id="tab-pisos" class="tab-content active">
+<div id="tab-blog" class="tab-content">
 <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 12px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.05);">
 <h3>Añadir / Editar En curso</h3>
 <form id="prop-form" onsubmit="app.saveProperty(event)">
