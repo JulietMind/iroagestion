@@ -143,8 +143,8 @@ td img { width: 60px; height: 40px; object-fit: cover; border-radius: 4px; }
 <button type="button" class="btn-reset" onclick="app.resetPropForm()">Cancelar</button>
 </form>
 </div>
-<h3>Listado de Finalizadas</h3>
-<table id="admin-table"><thead><tr><th>Img</th><th>Título</th><th>Ubicación</th><th>Rentabilidad</th><th>Acciones</th></tr></thead><tbody></tbody></table>
+<h3>Listado de En curso</h3>
+<table id="admin-posts-table"><thead><tr><th>Img</th><th>Título</th><th>Ubicación</th><th>Rentabilidad</th><th>Acciones</th></tr></thead><tbody></tbody></table>
 </div>
 
 </div>
