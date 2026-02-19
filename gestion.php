@@ -87,25 +87,25 @@ td img { width: 60px; height: 40px; object-fit: cover; border-radius: 4px; }
 
 <!-- PESTAÑAS -->
 <div class="tabs">
-<button class="tab-btn active" onclick="app.switchTab('tab-pisos')">Gestión de Pisos</button>
-<button class="tab-btn" onclick="app.switchTab('tab-blog')">Gestión de Blog</button>
+<button class="tab-btn active" onclick="app.switchTab('tab-pisos')">Finalizadas</button>
+<button class="tab-btn" onclick="app.switchTab('tab-blog')">En curso</button>
 </div>
 
-<!-- PESTAÑA 1: PISOS -->
+<!-- PESTAÑA 1: FINALIZADAS -->
 <div id="tab-pisos" class="tab-content active">
 <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 12px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.05);">
-<h3>Añadir / Editar Piso</h3>
+<h3>Añadir / Editar Finalizada</h3>
 <form id="prop-form" onsubmit="app.saveProperty(event)">
 <input type="hidden" id="prop-id">
 <div class="form-grid">
 <input type="text" id="prop-title" placeholder="Título" required>
 <input type="text" id="prop-loc" placeholder="Ubicación" required>
 <input type="text" id="prop-profit" placeholder="Rentabilidad" required>
-<input type="text" id="prop-min" placeholder="Mínimo" required>
+<input type="text" id="prop-min" placeholder="Total capital aportado" required>
 <input type="text" id="prop-duration" placeholder="Duración" required>
 <input type="text" id="prop-badge" placeholder="Estado">
-<input type="number" id="prop-progress" placeholder="Progreso">
-<input type="text" id="prop-funded" placeholder="Recaudado">
+<!-- <input type="number" id="prop-progress" placeholder="Progreso">-->
+<input type="text" id="prop-funded" placeholder="Beneficio">
 </div>
 <textarea id="prop-desc" rows="3" placeholder="Descripción..."></textarea>
 <input type="file" id="prop-file" class="form-input" accept="image/*" onchange="app.previewImage(this)">
@@ -115,14 +115,14 @@ td img { width: 60px; height: 40px; object-fit: cover; border-radius: 4px; }
 <button type="button" class="btn-reset" onclick="app.resetPropForm()">Cancelar</button>
 </form>
 </div>
-<h3>Listado de Pisos</h3>
+<h3>Listado de Finalizadas</h3>
 <table id="admin-table"><thead><tr><th>Img</th><th>Título</th><th>Ubicación</th><th>Rentabilidad</th><th>Acciones</th></tr></thead><tbody></tbody></table>
 </div>
 
-<!-- PESTAÑA 2: BLOG -->
+<!-- PESTAÑA 2: EN CURSO -->
 <div id="tab-blog" class="tab-content">
 <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 12px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.05);">
-<h3>Añadir / Editar Artículo</h3>
+<h3>Añadir / Editar En curso</h3>
 <form id="post-form" onsubmit="app.savePost(event)">
 <input type="hidden" id="post-id">
 <div class="form-grid">
