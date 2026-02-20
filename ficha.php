@@ -45,7 +45,7 @@
 </div>
 
 <!-- Barra de Progreso -->
-<div style="max-width: 600px; margin-bottom: 50px;">
+<!-- <div style="max-width: 600px; margin-bottom: 50px;">
 <div style="display: flex; justify-content: space-between; color: var(--text-muted); margin-bottom: 10px;">
 <span>Fondos Recaudados</span>
 <span id="detail-funded">...</span>
@@ -53,7 +53,7 @@
 <div style="height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden;">
 <div id="detail-progress" style="height: 100%; background: var(--primary); width: 0%; transition: width 1s;"></div>
 </div>
-</div>
+</div> -->
 
 <!-- Descripción -->
 <div id="detail-desc" class="detail-desc">
