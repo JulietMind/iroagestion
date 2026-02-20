@@ -109,17 +109,23 @@ if ($action == 'get_post') {
 if ($action == 'save_post' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'] ?? '';
     $title = $_POST['title'];
-    $date = $_POST['date'];
+    $location = $_POST['location'];
     $image = $_POST['image'];
-    $body = $_POST['body'];
+    $profit = $_POST['profit'];
+    $duration = $_POST['duration'];
+    $min = $_POST['min'];
+    $badge = $_POST['badge'];
+    $progress = $_POST['progress'];
+    $funded = $_POST['funded'];
+    $description = $_POST['description'];
 
     if ($id) {
-        $stmt = $conn->prepare("UPDATE posts SET title=?, date=?, image=?, body=? WHERE id=?");
-        $stmt->bind_param("ssssi", $title, $date, $image, $body, $id);
+        $stmt = $conn->prepare("UPDATE posts SET title=?, location=?, image=?, profit=?, duration=?, min=?, badge=?, progress=?, funded=?, description=? WHERE id=?");
+        $stmt->bind_param("sssssssssi", $title, $location, $image, $profit, $duration, $min, $badge, $progress, $funded, $description, $id);
         $executed = $stmt->execute();
     } else {
-        $stmt = $conn->prepare("INSERT INTO posts (title, date, image, body) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $title, $date, $image, $body);
+        $stmt = $conn->prepare("INSERT INTO posts (title, location, image, profit, duration, min, badge, progress, funded, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssssi", $title, $location, $image, $profit, $duration, $min, $badge, $progress, $funded, $description);
         $executed = $stmt->execute();
     }
 
