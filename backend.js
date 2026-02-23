@@ -401,19 +401,43 @@ const app = {
     const item = this.data.posts.find(x => x.id == id);
     if (!item) return;
 
+    // Rellenamos el formulario con los datos de la propiedad
+    document.getElementById('post-id').value = item.id;
+    document.getElementById('post-title').value = item.title;
+    document.getElementById('post-loc').value = item.location;
+    document.getElementById('post-profit').value = item.profit;
+    document.getElementById('post-duration').value = item.duration;
+    document.getElementById('post-min').value = item.min;
+    document.getElementById('post-badge').value = item.badge;
+    document.getElementById('post-funded').value = item.funded;
+    document.getElementById('post-desc').value = item.description || '';
+    document.getElementById('post-image-data').value = item.image;
+    document.getElementById('post-preview').style.backgroundImage = `url(${item.image})`;
+
+    // Si el campo progress existe en el HTML, lo rellenamos
+    const progressElem = document.getElementById('post-progress');
+    if(progressElem) progressElem.value = item.progress;
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  },
+
+//  editPost: function(id) {
+//    const item = this.data.posts.find(x => x.id == id);
+//    if (!item) return;
+
     // Cambiar a la pestaña Blog (si está implementado en JS)
     // Si usamos las pestañas del PHP anterior, esto es opcional, pero ayuda al flujo
     // document.getElementById('tab-blog').click();
 
-    document.getElementById('post-id').value = item.id;
-    document.getElementById('post-title').value = item.title;
-    document.getElementById('post-date').value = item.date;
-    document.getElementById('post-body').value = item.body;
-    document.getElementById('post-image-data').value = item.image;
-    document.getElementById('post-preview').style.backgroundImage = `url(${item.image})`;
+//    document.getElementById('post-id').value = item.id;
+//    document.getElementById('post-title').value = item.title;
+//    document.getElementById('post-date').value = item.date;
+//    document.getElementById('post-body').value = item.body;
+//    document.getElementById('post-image-data').value = item.image;
+//    document.getElementById('post-preview').style.backgroundImage = `url(${item.image})`;
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  },
+//    window.scrollTo({ top: 0, behavior: 'smooth' });
+//  },
 
   previewPostImage: function(input) {
     if (input.files && input.files[0]) {
