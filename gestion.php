@@ -132,7 +132,6 @@ td img { width: 60px; height: 40px; object-fit: cover; border-radius: 4px; }
 <input type="text" id="post-min" placeholder="Total capital aportado" required>
 <input type="text" id="post-duration" placeholder="Duración" required>
 <input type="text" id="post-badge" placeholder="Estado">
-<!-- <input type="number" id="prop-progress" placeholder="Progreso">-->
 <input type="text" id="post-funded" placeholder="Beneficio">
 </div>
 <textarea id="post-desc" rows="3" placeholder="Descripción..."></textarea>
