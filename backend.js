@@ -195,16 +195,23 @@ const app = {
       const item = await response.json();
 
       if (!item) {
-        document.getElementById('article-content').innerHTML = '<p style="padding:20px; color:white;">Artículo no encontrado.</p>';
+        document.getElementById('detail-container').innerHTML = '<p style="padding:20px; color:white;">Propiedad en curso no encontrada.</p>';
         return;
       }
 
-      document.getElementById('article-date').innerText = item.date;
-      document.getElementById('article-title').innerText = item.title;
-      document.getElementById('article-body').innerHTML = item.body;
+      // --- CAMBIOS AQUÍ: Rellenamos con datos de Propiedad ---
+      document.getElementById('detail-image').src = item.image;
+      document.getElementById('detail-title').innerText = item.title;
+      document.getElementById('detail-location-text').innerText = item.location;
+      document.getElementById('detail-profit').innerText = item.profit;
+      document.getElementById('detail-duration').innerText = item.duration;
+      document.getElementById('detail-min').innerText = item.min;
+
+      // Convertimos saltos de línea a <br> para la descripción
+      document.getElementById('detail-desc').innerHTML = (item.description || "").replace(/\n/g, '<br>');
 
     } catch (error) {
-      console.error("Error cargando artículo:", error);
+      console.error("Error cargando detalle:", error);
     }
   },
 
