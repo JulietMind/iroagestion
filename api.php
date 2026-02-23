@@ -115,7 +115,6 @@ if ($action == 'save_post' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $duration = $_POST['duration'];
     $min = $_POST['min'];
     $badge = $_POST['badge'];
-    $progress = $_POST['progress'];
     $funded = $_POST['funded'];
     $description = $_POST['description'];
 
