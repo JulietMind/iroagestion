@@ -47,20 +47,35 @@ const app = {
     container.innerHTML = this.createCardsHTML(items);
   },
 
-  // --- 4. BLOG (Lista Pública) ---
+  // --- 4. BLOG (Ahora PROPIEDADES EN CURSO) ---
   renderBlog: function() {
     const container = document.getElementById('blog-grid');
     if (!container) return;
 
     container.innerHTML = this.data.posts.map(item => `
-    <div class="post-card">
-    <div class="card-image-wrapper" style="height: 200px;">
+    <div class="project-card">
+    <div class="card-image-wrapper">
+    <span class="card-badge">${item.badge}</span>
     <img src="${item.image}" alt="${item.title}">
     </div>
     <div class="card-body">
-    <span style="color: var(--primary); font-size: 0.8rem; font-weight: bold;">${item.date}</span>
-    <h3 style="color: white; margin: 10px 0; font-size: 1.2rem;">${item.title}</h3>
-    <a href="articulo.php?id=${item.id}" class="btn btn-outline" style="margin-top: auto;">Leer Artículo</a>
+    <h3 class="project-title">${item.title}</h3>
+    <div class="project-location">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    ${item.location}
+    </div>
+
+    <div class="metrics-grid">
+    <div class="metric"><span class="metric-label">Rentabilidad</span><span class="metric-value gold">${item.profit.split('/')[0]}</span></div>
+    <div class="metric"><span class="metric-label">Duración</span><span class="metric-value">${item.duration.split(' ')[0]}m</span></div>
+    <div class="metric"><span class="metric-label">Min. Inversión</span><span class="metric-value">${item.min}</span></div>
+    </div>
+
+    <!-- Enlace cambiado a articulo.php -->
+    <a href="articulo.php?id=${item.id}" class="card-btn">
+    Ver Detalles
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
     </div>
     </div>
     `).join('');
