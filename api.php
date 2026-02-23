@@ -120,11 +120,11 @@ if ($action == 'save_post' && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($id) {
         $stmt = $conn->prepare("UPDATE posts SET title=?, location=?, image=?, profit=?, duration=?, min=?, badge=?, funded=?, description=? WHERE id=?");
-        $stmt->bind_param("sssssssssi", $title, $location, $image, $profit, $duration, $min, $badge, $progress, $funded, $description, $id);
+        $stmt->bind_param("sssssssssi", $title, $location, $image, $profit, $duration, $min, $badge, $funded, $description, $id);
         $executed = $stmt->execute();
     } else {
-        $stmt = $conn->prepare("INSERT INTO posts (title, location, image, profit, duration, min, badge, funded, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssssssss", $title, $location, $image, $profit, $duration, $min, $badge, $progress, $funded, $description);
+        $stmt = $conn->prepare("INSERT INTO posts (title, location, image, profit, duration, min, badge, funded, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssss", $title, $location, $image, $profit, $duration, $min, $badge, $funded, $description);
         $executed = $stmt->execute();
     }
 
