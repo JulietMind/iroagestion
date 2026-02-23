@@ -353,7 +353,6 @@ const app = {
         duration: document.getElementById('post-duration').value,
         min: document.getElementById('post-min').value,
         badge: document.getElementById('post-badge').value,
-        progress: progressVal,
         funded: document.getElementById('post-funded').value,
         description: document.getElementById('post-desc').value,
         image: finalImage
