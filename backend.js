@@ -55,23 +55,28 @@ const app = {
     container.innerHTML = this.data.posts.map(item => `
     <div class="project-card">
     <div class="card-image-wrapper">
-    <span class="card-badge">${item.badge}</span>
+    <!-- Usamos un badge por defecto si viene vacío -->
+    <span class="card-badge">${item.badge || 'En Curso'}</span>
     <img src="${item.image}" alt="${item.title}">
     </div>
     <div class="card-body">
-    <h3 class="project-title">${item.title}</h3>
+    <h3 class="project-title">${item.title || 'Sin título'}</h3>
     <div class="project-location">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-    ${item.location}
+    ${item.location || 'Ubicación no especificada'}
     </div>
 
     <div class="metrics-grid">
-    <div class="metric"><span class="metric-label">Rentabilidad</span><span class="metric-value gold">${item.profit.split('/')[0]}</span></div>
-    <div class="metric"><span class="metric-label">Duración</span><span class="metric-value">${item.duration.split(' ')[0]}m</span></div>
-    <div class="metric"><span class="metric-label">Min. Inversión</span><span class="metric-value">${item.min}</span></div>
+    <!-- AQUÍ ESTÁ LA CORRECCIÓN: Añadimos || '0%' para evitar el error si está vacío -->
+    <div class="metric"><span class="metric-label">Rentabilidad</span><span class="metric-value gold">${(item.profit || '0%').split('/')[0]}</span></div>
+
+    <!-- AQUÍ ESTÁ LA CORRECCIÓN: Añadimos || '0 meses' para evitar el error -->
+    <div class="metric"><span class="metric-label">Duración</span><span class="metric-value">${(item.duration || '0 meses').split(' ')[0]}m</span></div>
+
+    <div class="metric"><span class="metric-label">Min. Inversión</span><span class="metric-value">${item.min || '-'}</span></div>
     </div>
 
-    <!-- Enlace cambiado a articulo.php -->
+    <!-- Enlace a articulo.php -->
     <a href="articulo.php?id=${item.id}" class="card-btn">
     Ver Detalles
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -312,8 +317,15 @@ const app = {
     if (input.files && input.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        document.getElementById('prop-image-data').value = e.target.result;
-        document.getElementById('prop-preview').style.backgroundImage = `url(${e.target.result})`;
+        // DETECTAMOS EN QUÉ FORMULARIO ESTAMOS
+        const isPostForm = input.id.includes('post');
+
+        // Definimos los IDs según el formulario
+        const targetDataId = isPostForm ? 'post-image-data' : 'prop-image-data';
+        const targetPreviewId = isPostForm ? 'post-preview' : 'prop-preview';
+
+        document.getElementById(targetDataId).value = e.target.result;
+        document.getElementById(targetPreviewId).style.backgroundImage = `url(${e.target.result})`;
       }
       reader.readAsDataURL(input.files[0]);
     }
