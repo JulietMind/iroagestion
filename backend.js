@@ -283,7 +283,6 @@ const app = {
     document.getElementById('prop-duration').value = itemFound.duration;
     document.getElementById('prop-min').value = itemFound.min;
     document.getElementById('prop-badge').value = itemFound.badge;
-    document.getElementById('prop-progress').value = itemFound.progress;
     document.getElementById('prop-funded').value = itemFound.funded;
     document.getElementById('prop-desc').value = itemFound.description || '';
     document.getElementById('prop-image-data').value = itemFound.image;
