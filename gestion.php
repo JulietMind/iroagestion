@@ -104,7 +104,6 @@ td img { width: 60px; height: 40px; object-fit: cover; border-radius: 4px; }
 <input type="text" id="prop-min" placeholder="Total capital aportado" required>
 <input type="text" id="prop-duration" placeholder="Duración" required>
 <input type="text" id="prop-badge" placeholder="Estado">
-<!-- <input type="number" id="prop-progress" placeholder="Progreso">-->
 <input type="text" id="prop-funded" placeholder="Beneficio">
 </div>
 <textarea id="prop-desc" rows="3" placeholder="Descripción..."></textarea>
