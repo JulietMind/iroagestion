@@ -32,7 +32,7 @@ const app = {
     const container = document.getElementById('featured-grid');
     if (!container) return;
 
-    // Mostramos solo los primeros 3
+    // Numero de propiedades destacadas en index.php
     const items = this.data.properties.slice(0, 6);
     container.innerHTML = this.createCardsHTML(items);
   },
@@ -85,7 +85,7 @@ const app = {
     `).join('');
   },
 
-  // --- 6. ADMIN: BLOG (NUEVO) ---
+  // --- 6. ADMIN: BLOG (Ahora PROPIEDADES EN CURSO) ---
   renderAdminPosts: function() {
     const tbody = document.querySelector('#admin-posts-table tbody');
     if (!tbody) return;
@@ -94,7 +94,8 @@ const app = {
     <tr>
     <td><img src="${item.image}" alt="mini" style="width:60px; height:40px; object-fit:cover; border-radius:4px;"></td>
     <td>${item.title}</td>
-    <td>${item.date}</td>
+    <td>${item.location}</td> <!-- CAMBIO: Mostramos Ubicación en lugar de Fecha -->
+    <td>${item.profit}</td>   <!-- CAMBIO: Mostramos Rentabilidad -->
     <td>
     <button class="btn-edit" onclick="app.editPost(${item.id})">Editar</button>
     <button class="btn-del" onclick="app.deletePost(${item.id})">Borrar</button>
@@ -102,6 +103,24 @@ const app = {
     </tr>
     `).join('');
   },
+
+  // --- 6. ADMIN: BLOG (ANTIGUO POSTS BLOG) ---
+//  renderAdminPosts: function() {
+//    const tbody = document.querySelector('#admin-posts-table tbody');
+  //  if (!tbody) return;
+
+    //tbody.innerHTML = this.data.posts.map(item => `
+    //<tr>
+    //<td><img src="${item.image}" alt="mini" style="width:60px; height:40px; object-fit:cover; border-radius:4px;"></td>
+    //<td>${item.title}</td>
+    //<td>${item.date}</td>
+    //<td>
+    //<button class="btn-edit" onclick="app.editPost(${item.id})">Editar</button>
+    //<button class="btn-del" onclick="app.deletePost(${item.id})">Borrar</button>
+    //</td>
+    //</tr>
+    //`).join('');
+ // },
 
   // --- 7. HELPER DE TARJETAS (Compartido) ---
   createCardsHTML: function(items) {
