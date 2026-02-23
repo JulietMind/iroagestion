@@ -287,12 +287,6 @@ const app = {
     document.getElementById('prop-image-data').value = itemFound.image;
     document.getElementById('prop-preview').style.backgroundImage = `url(${itemFound.image})`;
 
-    // Verificamos si el elemento existe antes de asignarle valor
-    const progressElem = document.getElementById('prop-progress');
-    if (progressElem) {
-      progressElem.value = item.progress;
-    }
-
     // Scroll suave al formulario
     window.scrollTo({ top: 0, behavior: 'smooth' });
   },
