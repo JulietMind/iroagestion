@@ -125,7 +125,7 @@ if ($action == 'save_post' && $_SERVER['REQUEST_METHOD'] == 'POST') {
         $executed = $stmt->execute();
     } else {
         $stmt = $conn->prepare("INSERT INTO posts (title, location, image, profit, duration, min, badge, progress, funded, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssssssssi", $title, $location, $image, $profit, $duration, $min, $badge, $progress, $funded, $description);
+        $stmt->bind_param("ssssssssss", $title, $location, $image, $profit, $duration, $min, $badge, $progress, $funded, $description);
         $executed = $stmt->execute();
     }
 
