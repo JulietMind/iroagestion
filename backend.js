@@ -33,7 +33,7 @@ const app = {
     if (!container) return;
 
     // Mostramos solo los primeros 3
-    const items = this.data.properties.slice(0, 3);
+    const items = this.data.properties.slice(0, 6);
     container.innerHTML = this.createCardsHTML(items);
   },
 
