@@ -229,7 +229,6 @@ const app = {
         duration: document.getElementById('prop-duration').value,
         min: document.getElementById('prop-min').value,
         badge: document.getElementById('prop-badge').value,
-        progress: document.getElementById('prop-progress').value,
         funded: document.getElementById('prop-funded').value,
         description: document.getElementById('prop-desc').value,
         image: finalImage
