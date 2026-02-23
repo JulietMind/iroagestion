@@ -304,7 +304,8 @@ const app = {
     }
   },
 
-  // --- 10. ACCIONES BLOG (NUEVO) ---
+
+  // --- 10. ACCIONES BLOG (Ahora GUARDA PROPIEDADES EN CURSO) ---
   savePost: async function(e) {
     e.preventDefault();
     const id = document.getElementById('post-id').value;
@@ -312,12 +313,23 @@ const app = {
     let finalImage = imageInput;
     if (!finalImage && !id) finalImage = `https://picsum.photos/seed/${Date.now()}/400/300`;
 
+      // Recogemos los datos igual que en el formulario de Finalizadas
+      // Nota: Si 'post-progress' no existe en el HTML (está comentado), enviamos '0' por defecto.
+      const progressElem = document.getElementById('post-progress');
+      const progressVal = progressElem ? progressElem.value : '0';
+
       const formData = {
         id: id,
         title: document.getElementById('post-title').value,
-        date: document.getElementById('post-date').value,
-        image: finalImage,
-        body: document.getElementById('post-body').value
+        location: document.getElementById('post-loc').value,
+        profit: document.getElementById('post-profit').value,
+        duration: document.getElementById('post-duration').value,
+        min: document.getElementById('post-min').value,
+        badge: document.getElementById('post-badge').value,
+        progress: progressVal,
+        funded: document.getElementById('post-funded').value,
+        description: document.getElementById('post-desc').value,
+        image: finalImage
       };
 
       const params = new URLSearchParams();
@@ -332,13 +344,49 @@ const app = {
         const result = await response.json();
         if(result.status === 'success') {
           this.resetPostForm();
-          // Limpiar memoria para que aparezca el nuevo artículo
+          // Limpiar memoria para que aparezca el nuevo item
           this.data = { properties: [], posts: [] };
           await this.init();
-          alert('Artículo guardado');
+          alert('Propiedad en curso guardada correctamente');
         }
       } catch (error) { alert('Error al guardar'); }
   },
+
+  // --- 10. ACCIONES BLOG (NUEVO) ---
+//  savePost: async function(e) {
+//    e.preventDefault();
+//    const id = document.getElementById('post-id').value;
+//    const imageInput = document.getElementById('post-image-data').value;
+//    let finalImage = imageInput;
+//    if (!finalImage && !id) finalImage = `https://picsum.photos/seed/${Date.now()}/400/300`;
+
+//      const formData = {
+//        id: id,
+//        title: document.getElementById('post-title').value,
+//        date: document.getElementById('post-date').value,
+//        image: finalImage,
+//        body: document.getElementById('post-body').value
+//      };
+
+//      const params = new URLSearchParams();
+//      for (const key in formData) params.append(key, formData[key]);
+
+//      try {
+//        const response = await fetch('api.php?action=save_post', {
+//          method: 'POST',
+//          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+//          body: params
+//        });
+//        const result = await response.json();
+//        if(result.status === 'success') {
+//          this.resetPostForm();
+          // Limpiar memoria para que aparezca el nuevo artículo
+//          this.data = { properties: [], posts: [] };
+//          await this.init();
+//          alert('Artículo guardado');
+//        }
+//      } catch (error) { alert('Error al guardar'); }
+//  },
 
   deletePost: async function(id) {
     if(confirm('¿Borrar artículo?')) {
