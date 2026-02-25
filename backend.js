@@ -159,7 +159,7 @@ const app = {
     </div>
 
     <div class="metrics-grid">
-    <div class="metric"><span class="metric-label">Rentabilidad</span><span class="metric-value gold">${item.profit.split('/')[0]} %</span></div>
+    <div class="metric"><span class="metric-label">Rentabilidad</span><span class="metric-value gold">${item.profit.split('/')[0]}%</span></div>
     <div class="metric"><span class="metric-label">Duración</span><span class="metric-value">${item.duration.split(' ')[0]}m</span></div>
     <div class="metric"><span class="metric-label">Min. Inversión</span><span class="metric-value">${item.min}</span></div>
     </div>
