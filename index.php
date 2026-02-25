@@ -101,7 +101,7 @@
 <div class="cta-box">
 <h2 style="font-size: 2.5rem; font-family: 'Playfair Display', serif; color: white; margin-bottom: 20px;">¿Listo para comenzar a invertir?</h2>
 <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px;">Hable con nuestros asesores y diseñe su estrategia personalizada.</p>
-<p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 20px;">O puede contactarnos a través de info@iroagestion.com</p>
+<p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 20px;">O puede contactarnos a través de</p> <p style="color: var(--text-muted); font-text: bold; font-size: 1.2rem; margin-bottom: 20px;">info@iroagestion.com</p>
 </div>
 </div>
 </section>
