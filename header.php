@@ -301,9 +301,9 @@ nav { display: flex; justify-content: space-between; align-items: center; height
 
 <ul id="main-nav" class="nav-links">
 <li><a href="index.php">Inicio</a></li>
-<li><a href="oportunidades.php">Oportunidades</a></li>
+<li><a href="finalizadas.php">Finalizadas</a></li>
+<li><a href="curso.php">En curso</a></li>
 <li><a href="sobre-nosotros.php">Sobre nosotros</a></li>
-<li><a href="blog.php">Blog</a></li>
 </ul>
 
 <!-- Menu móvil -->
