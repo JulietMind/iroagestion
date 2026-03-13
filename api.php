@@ -55,11 +55,11 @@ if ($action == 'save_property' && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($id) {
         $stmt = $conn->prepare("UPDATE properties SET title=?, location=?, image=?, profit=?, duration=?, min=?, badge=?, funded=?, description=? WHERE id=?");
-        $stmt->bind_param("sssssssssi", $title, $location, $image, $profit, $duration, $min, $badge, $funded, $description, $id);
+        $stmt->bind_param("sssssssss", $title, $location, $image, $profit, $duration, $min, $badge, $funded, $description, $id);
         $executed = $stmt->execute();
     } else {
         $stmt = $conn->prepare("INSERT INTO properties (title, location, image, profit, duration, min, badge, funded, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssssssssi", $title, $location, $image, $profit, $duration, $min, $badge, $funded, $description);
+        $stmt->bind_param("sssssssss", $title, $location, $image, $profit, $duration, $min, $badge, $funded, $description);
         $executed = $stmt->execute();
     }
 
@@ -79,7 +79,7 @@ if ($action == 'delete_property') {
     exit;
 }
 
-// --- NUEVO: Obtener SOLO un piso ---
+// 5. EDITAR Finalizada
 if ($action == 'get_property') {
     $id = $_GET['id'];
     $result = $conn->query("SELECT * FROM properties WHERE id=$id");
@@ -92,7 +92,7 @@ if ($action == 'get_property') {
     exit;
 }
 
-// --- NUEVO: Obtener SOLO un artículo ---
+//  6. EDITAR En curso
 if ($action == 'get_post') {
     $id = $_GET['id'];
     $result = $conn->query("SELECT * FROM posts WHERE id=$id");
@@ -105,7 +105,7 @@ if ($action == 'get_post') {
     exit;
 }
 
-// --- NUEVO: GUARDAR POST ---
+//  7. GUARDAR POST
 if ($action == 'save_post' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'] ?? '';
     $title = $_POST['title'];
@@ -120,7 +120,7 @@ if ($action == 'save_post' && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($id) {
         $stmt = $conn->prepare("UPDATE posts SET title=?, location=?, image=?, profit=?, duration=?, min=?, badge=?, funded=?, description=? WHERE id=?");
-        $stmt->bind_param("sssssssssi", $title, $location, $image, $profit, $duration, $min, $badge, $funded, $description, $id);
+        $stmt->bind_param("sssssssss", $title, $location, $image, $profit, $duration, $min, $badge, $funded, $description, $id);
         $executed = $stmt->execute();
     } else {
         $stmt = $conn->prepare("INSERT INTO posts (title, location, image, profit, duration, min, badge, funded, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -136,7 +136,7 @@ if ($action == 'save_post' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     exit;
 }
 
-// --- NUEVO: BORRAR POST ---
+// 8. BORRAR POST
 if ($action == 'delete_post') {
     $id = $_GET['id'];
     $conn->query("DELETE FROM posts WHERE id=$id");
