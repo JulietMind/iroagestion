@@ -54,7 +54,7 @@
 <span style="color: var(--primary); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Catálogo Selecto</span>
 <h2 style="font-size: 2.5rem; font-family: 'Playfair Display', serif; color: white; margin-top: 10px;">Inversiones Finalizadas</h2>
 </div>
-<a href="oportunidades.php" style="font-weight: 600; color: white; display: flex; align-items: center; gap: 5px;">Ver todo el catálogo →</a>
+<a href="finalizadas.php" style="font-weight: 600; color: white; display: flex; align-items: center; gap: 5px;">Ver todo el catálogo →</a>
 </div>
 <div id="featured-grid" class="project-grid"></div>
 </div>
