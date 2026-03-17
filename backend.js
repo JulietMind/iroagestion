@@ -68,12 +68,12 @@ const app = {
 
     <div class="metrics-grid">
     <!-- Añadimos '0%' para evitar el error si está vacío -->
-    <div class="metric"><span class="metric-label">Rentabilidad</span><span class="metric-value gold">${(item.profit || '0%').split('/')[0]}%</span></div>
+    <div class="metric"><span class="metric-label">Rentabilidad</span><span class="metric-value gold">${(item.profit || '0%').split('/')[0]}</span> %</div>
 
     <!-- Añadimos '0 meses' para evitar el error -->
-    <div class="metric"><span class="metric-label">Duración</span><span class="metric-value">${(item.duration || '0 meses').split(' ')[0]}m</span></div>
+    <div class="metric"><span class="metric-label">Duración</span><span class="metric-value">${(item.duration || '0 meses').split(' ')[0]} m</span></div>
 
-    <div class="metric"><span class="metric-label">Min. Inversión</span><span class="metric-value">${item.min || '-'}</span></div>
+    <div class="metric"><span class="metric-label">Min. Inversión</span><span class="metric-value">${item.min || '-'} €</span></div>
     </div>
 
     <!-- Enlace a articulo.php -->
